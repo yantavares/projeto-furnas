@@ -1,103 +1,66 @@
-import plotly.graph_objects as go
 import os
 from IPython.display import display
 from ipywidgets import Button
+import plotly.graph_objects as go
 
 
-def grafico_interativo_linha(x, y, nome_eixo_x, nome_eixo_y, titulo="", nome_legenda=""):
-    """
-    Cria um gráfico de linha interativo utilizando Plotly.
+class GeradorGrafico:
+    def __init__(self, nome_arquivo="grafico.pdf"):
+        self.nome_arquivo = nome_arquivo
 
-    :param x: Vetor com os valores do eixo x.
-    :param y: Vetor com os valores do eixo y.
-    :param nome_eixo_x: Nome para ser exibido no eixo x do gráfico.
-    :param nome_eixo_y: Nome para ser exibido no eixo y do gráfico.
-    :param titulo: Título opcional do gráfico.
-    :param nome_legenda: Nome opcional para a legenda da linha.
-    :return: Objeto de figura Plotly contendo o gráfico de linha.
-    """
-    fig = go.Figure()
-    fig.add_trace(go.Scatter(x=x, y=y, mode='lines', name=nome_legenda))
+    def grafico_interativo_linha(self, x, y, nome_eixo_x, nome_eixo_y, titulo="", nome_legenda=""):
+        fig = go.Figure()
+        fig.add_trace(go.Scatter(x=x, y=y, mode='lines', name=nome_legenda))
 
-    fig.update_layout(
-        title=titulo,
-        xaxis_title=nome_eixo_x,
-        yaxis_title=nome_eixo_y,
-        legend_title="Legenda"
-    )
+        fig.update_layout(
+            title=titulo,
+            xaxis_title=nome_eixo_x,
+            yaxis_title=nome_eixo_y,
+            legend_title="Legenda"
+        )
 
-    fig.show(config={'displaylogo': False})
+        fig.show(config={'displaylogo': False})
+        self.fig = fig
 
-    return fig
+    def grafico_interativo_multiplas_linhas(self, x, y, nome_eixo_x, nome_eixo_y, titulo="", nome_legenda=[]):
+        fig = go.Figure()
+        for i in range(len(y)):
+            legenda = nome_legenda[i] if i < len(nome_legenda) else ""
+            fig.add_trace(go.Scatter(x=x, y=y[i], mode='lines', name=legenda))
 
+        fig.update_layout(
+            title=titulo,
+            xaxis_title=nome_eixo_x,
+            yaxis_title=nome_eixo_y,
+            legend_title=""
+        )
 
-def grafico_interativo_multiplas_linhas(x, y, nome_eixo_x, nome_eixo_y, titulo="", nome_legenda=[]):
-    """
-    Cria um gráfico interativo com múltiplas linhas utilizando Plotly.
+        fig.show(config={'displaylogo': False})
+        self.fig = fig
 
-    :param x: Vetor com os valores do eixo x, comum a todas as linhas.
-    :param y: Matriz com os valores do eixo y para cada linha.
-    :param nome_eixo_x: Nome para ser exibido no eixo x do gráfico.
-    :param nome_eixo_y: Nome para ser exibido no eixo y do gráfico.
-    :param titulo: Título opcional do gráfico.
-    :param nome_legenda: Lista com os nomes das legendas para cada linha.
-    :return: Objeto de figura Plotly contendo o gráfico com múltiplas linhas.
-    """
-    fig = go.Figure()
-    for i in range(len(y)):
-        legenda = nome_legenda[i] if i < len(nome_legenda) else ""
-        fig.add_trace(go.Scatter(x=x, y=y[i], mode='lines', name=legenda))
+    def exportar_para_pdf(self):
+        if not os.path.exists("imagens"):
+            os.mkdir("imagens")
+        self.fig.write_image(f"imagens/{self.nome_arquivo}")
 
-    fig.update_layout(
-        title=titulo,
-        xaxis_title=nome_eixo_x,
-        yaxis_title=nome_eixo_y,
-        legend_title=""
-    )
+    def botao_exportar_pdf(self):
+        botao = Button(description="Exportar como PDF")
+        botao.on_click(self._ao_clicar_no_botao)
+        display(botao)
 
-    fig.show(config={'displaylogo': False})
-
-    return fig
-
-
-def exportar_para_pdf(fig, nome_arquivo="grafico.pdf"):
-    """
-    Exporta um gráfico para um arquivo PDF.
-
-    :param fig: Objeto de figura Plotly que será exportado.
-    :param nome_arquivo: Nome do arquivo PDF para salvar o gráfico.
-    """
-    if not os.path.exists("imagens"):
-        os.mkdir("imagens")
-    fig.write_image(f"imagens/{nome_arquivo}")
-
-
-def _criar_handler_botao(fig, nome_arquivo):
-    """
-    Cria um handler para um evento de clique de botão que exporta um gráfico para PDF.
-
-    :param fig: Objeto de figura Plotly que será exportado.
-    :param nome_arquivo: Nome do arquivo PDF para salvar o gráfico.
-    :return: Função que será chamada quando o botão for clicado.
-    """
-    def ao_clicar_no_botao(_):
-        exportar_para_pdf(fig, nome_arquivo)
+    def _ao_clicar_no_botao(self, _):
         try:
-            pass
-            # files.download(f'imagens/{nome_arquivo}')
+            self.exportar_para_pdf()
+            # files.download(f'imagens/{self.nome_arquivo}')
         except Exception as e:
             print(f"Não foi possível baixar o arquivo: {e}")
-    return ao_clicar_no_botao
 
 
-def botao_exportar_pdf(fig, nome_arquivo="grafico.pdf"):
-    """
-    Cria e exibe um botão no Google Colab para exportar um gráfico como PDF.
-
-    :param fig: Objeto de figura Plotly que será exportado.
-    :param nome_arquivo: Nome do arquivo PDF para salvar o gráfico.
-    """
-    botao = Button(description="Exportar como PDF")
-    handler_botao = _criar_handler_botao(fig, nome_arquivo)
-    botao.on_click(handler_botao)
-    display(botao)
+if __name__ == "__main__":
+    # Exemplo de uso da classe
+    gerador = GeradorGrafico("meu_grafico.pdf")
+    x = [1, 2, 3, 4]
+    y = [10, 11, 12, 13]
+    gerador.grafico_interativo_linha(
+        x, y, "Eixo X", "Eixo Y", "Título do Gráfico", "Legenda da Linha")
+    gerador.botao_exportar_pdf()
