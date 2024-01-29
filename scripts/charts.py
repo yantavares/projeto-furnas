@@ -4,7 +4,7 @@ from ipywidgets import Button
 import plotly.graph_objects as go
 
 
-class GeradorGrafico:
+class GeradorGraficoFurnas:
     def __init__(self, nome_arquivo="grafico.pdf"):
         self.nome_arquivo = nome_arquivo
 
@@ -103,7 +103,7 @@ class GeradorGrafico:
 
 if __name__ == "__main__":
     # Exemplo de uso da classe
-    gerador = GeradorGrafico("meu_grafico.pdf")
+    gerador = GeradorGraficoFurnas("meu_grafico.pdf")
     x = [1, 2, 3, 4]
     y = [10, 11, 12, 13]
     gerador.grafico_interativo_linha(
