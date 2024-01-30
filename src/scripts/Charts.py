@@ -73,7 +73,7 @@ class GeradorGraficoFurnas:
 
     def botao_exportar_pdf(self):
         """
-        Cria e exibe um botão no Google Colab para exportar um gráfico como PDF.
+        Cria e exibe um botão no Jupyter para exportar um gráfico como PDF.
 
         :param fig: Objeto de figura Plotly que será exportado.
         :param nome_arquivo: Nome do arquivo PDF para salvar o gráfico.
@@ -122,7 +122,7 @@ class GeradorGraficoFurnas:
 
 if __name__ == "__main__":
     # Exemplo de uso da classe
-    gerador = GeradorGraficoFurnas("meu_grafico.pdf")
+    gerador = GeradorGraficoFurnas("meu_grafico")
     x = [1, 2, 3, 4]
     y = [10, 11, 12, 13]
     gerador.grafico_interativo_linha(
