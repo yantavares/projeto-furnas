@@ -172,7 +172,7 @@ class FormularioFurnas:
             print(e)
 
     def recuperar_valores(self):
-        return self.custo_oem, self.taxa_de_juros, \
+        return self.potencia_termo, self.custo_oem, self.taxa_de_juros, \
             self.tempo_pagar_divida, self.eficiencia_aeroGT, self.eficiencia_steam, self.eficiencia_NG, \
             self.energia_combustivel, self.preco_combustivel, self.custo_ciclo_aeroGT_cold, \
             self.custo_ciclo_steam_cold, self.custo_ciclo_NG_cold, self.custo_ciclo_aeroGT_warm, \
