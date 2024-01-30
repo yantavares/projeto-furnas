@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 
 
 class GeradorGraficoFurnas:
-    def __init__(self, nome_arquivo="grafico.pdf"):
+    def __init__(self, nome_arquivo="grafico"):
         self.nome_arquivo = nome_arquivo
 
     def grafico_interativo_linha(self, x, y, nome_eixo_x, nome_eixo_y, titulo="", nome_legenda=""):
@@ -79,8 +79,8 @@ class GeradorGraficoFurnas:
         :param nome_arquivo: Nome do arquivo PDF para salvar o gráfico.
         """
 
-        botao = Button(description="Exportar como PDF")
-        botao.on_click(self._ao_clicar_no_botao)
+        botao = Button(description="Exportar para PDF")
+        botao.on_click(self._criar_handler_botao(self.fig, self.nome_arquivo))
         display(botao)
 
     def _criar_handler_botao(self, fig, nome_arquivo):
@@ -92,13 +92,32 @@ class GeradorGraficoFurnas:
         :return: Função que será chamada quando o botão for clicado.
         """
         def ao_clicar_no_botao(_):
-            self.exportar_para_pdf(self, fig, nome_arquivo)
+            # Verifica se o diretório 'imagens/' existe, se não, cria
+            if not os.path.exists('imagens'):
+                os.makedirs('imagens')
+
             try:
-                pass
-                # files.download(f'imagens/{nome_arquivo}')
+                # Caminho completo do arquivo
+                arquivo_completo = f'imagens/{nome_arquivo}.pdf'
+
+                # Exporta a figura como PDF
+                fig.write_image(arquivo_completo)
+
+                # Inicia o download do arquivo
+                self.download_file(arquivo_completo)
             except Exception as e:
                 print(f"Não foi possível baixar o arquivo: {e}")
+
         return ao_clicar_no_botao
+
+    def download_file(self, file_path):
+        """
+        Inicia o download de um arquivo no Jupyter Notebook.
+
+        :param file_path: Caminho do arquivo a ser baixado.
+        """
+        from IPython.display import FileLink
+        display(FileLink(file_path))
 
 
 if __name__ == "__main__":
