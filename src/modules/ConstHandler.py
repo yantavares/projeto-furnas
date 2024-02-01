@@ -84,18 +84,6 @@ class Constants:
                 'Custo de Início Frio Heavy Duty GE 7F.05 ($/MW)', 75),
         )
 
-        self.widget_style = {'description_width': '300px'}
-        self.widget_layout = Layout(width='auto', margin='5px auto')
-
-    def criar_widget(self, description, value, disabled=False):
-        return FloatText(description=description,
-                         title=description,
-                         label=description,
-                         value=value,
-                         disabled=disabled,
-                         style=self.widget_style,
-                         layout=self.widget_layout)
-
     def get_widgets(self):
         return self.widget_constants
 

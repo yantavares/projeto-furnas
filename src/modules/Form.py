@@ -1,6 +1,9 @@
 from IPython.display import display, clear_output
 from ipywidgets import Button, Dropdown, VBox, HBox, Layout
-from .Consts import Constants
+if __name__ == "__main__":
+    from modules.ConstHandler import Constants
+else:
+    from .ConstHandler import Constants
 
 
 class FormularioFurnas:
