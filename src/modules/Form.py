@@ -1,5 +1,6 @@
 from IPython.display import display, clear_output
 from ipywidgets import Button, Dropdown, FloatText, VBox, HBox, Layout
+from types import SimpleNamespace
 
 
 class FormularioFurnas:
@@ -229,44 +230,44 @@ class FormularioFurnas:
             print(e)
 
     def recuperar_valores(self):
-        return {
-            "multiplicador_inflacao": self.multiplicador_inflacao,
-            "pe_cubico_para_m": self.pe_cubico_para_m,
-            "preco_NG": self.preco_NG,
-            "taxa_de_juros": self.taxa_de_juros,
-            "tempo_pagar_turbina": self.tempo_pagar_turbina,
-            "potencia_CCGT": self.potencia_CCGT,
-            "custo_capital_CCGT": self.custo_capital_CCGT,
-            "custo_OM_CCGT": self.custo_OM_CCGT,
-            "eficiencia_CCGT": self.eficiencia_CCGT,
-            "tempo_inicio_quente_CCGT": self.tempo_inicio_quente_CCGT,
-            "tempo_inicio_morno_CCGT": self.tempo_inicio_morno_CCGT,
-            "tempo_inicio_frio_CCGT": self.tempo_inicio_frio_CCGT,
-            "custo_inicio_quente_CCGT": self.custo_inicio_quente_CCGT,
-            "custo_inicio_morno_CCGT": self.custo_inicio_morno_CCGT,
-            "custo_inicio_frio_CCGT": self.custo_inicio_frio_CCGT,
-            "potencia_Aero": self.potencia_Aero,
-            "custo_total_Aero": self.custo_total_Aero,
-            "custo_OM_Aero": self.custo_OM_Aero,
-            "eficiencia_Aero": self.eficiencia_Aero,
-            "tempo_inicio_quente_Aero": self.tempo_inicio_quente_Aero,
-            "tempo_inicio_morno_Aero": self.tempo_inicio_morno_Aero,
-            "tempo_inicio_frio_Aero": self.tempo_inicio_frio_Aero,
-            "custo_inicio_quente_Aero": self.custo_inicio_quente_Aero,
-            "custo_inicio_morno_Aero": self.custo_inicio_morno_Aero,
-            "custo_inicio_frio_Aero": self.custo_inicio_frio_Aero,
-            "potencia_Heavy_Duty_GE_7F_05": self.potencia_Heavy_Duty_GE_7F_05,
-            "custo_total_Heavy_Duty_GE_7F_05": self.custo_total_Heavy_Duty_GE_7F_05,
-            "custo_OM_Heavy_Duty_GE_7F_05_espera": self.custo_OM_Heavy_Duty_GE_7F_05_espera,
-            "eficiencia_Heavy_Duty": self.eficiencia_Heavy_Duty,
-            "tempo_inicio_quente_Heavy_Duty": self.tempo_inicio_quente_Heavy_Duty,
-            "tempo_inicio_morno_Heavy_Duty": self.tempo_inicio_morno_Heavy_Duty,
-            "tempo_inicio_frio_Heavy_Duty": self.tempo_inicio_frio_Heavy_Duty,
-            "custo_inicio_quente_Heavy_Duty": self.custo_inicio_quente_Heavy_Duty,
-            "custo_inicio_morno_Heavy_Duty": self.custo_inicio_morno_Heavy_Duty,
-            "custo_inicio_frio_Heavy_Duty": self.custo_inicio_frio_Heavy_Duty,
-            "custo_combustivel_CCGT": self.custo_combustivel_CCGT
-        }
+        return SimpleNamespace(
+            multiplicador_inflacao=self.multiplicador_inflacao,
+            pe_cubico_para_m=self.pe_cubico_para_m,
+            preco_NG=self.preco_NG,
+            taxa_de_juros=self.taxa_de_juros,
+            tempo_pagar_turbina=self.tempo_pagar_turbina,
+            potencia_CCGT=self.potencia_CCGT,
+            custo_capital_CCGT=self.custo_capital_CCGT,
+            custo_OM_CCGT=self.custo_OM_CCGT,
+            eficiencia_CCGT=self.eficiencia_CCGT,
+            tempo_inicio_quente_CCGT=self.tempo_inicio_quente_CCGT,
+            tempo_inicio_morno_CCGT=self.tempo_inicio_morno_CCGT,
+            tempo_inicio_frio_CCGT=self.tempo_inicio_frio_CCGT,
+            custo_inicio_quente_CCGT=self.custo_inicio_quente_CCGT,
+            custo_inicio_morno_CCGT=self.custo_inicio_morno_CCGT,
+            custo_inicio_frio_CCGT=self.custo_inicio_frio_CCGT,
+            potencia_Aero=self.potencia_Aero,
+            custo_total_Aero=self.custo_total_Aero,
+            custo_OM_Aero=self.custo_OM_Aero,
+            eficiencia_Aero=self.eficiencia_Aero,
+            tempo_inicio_quente_Aero=self.tempo_inicio_quente_Aero,
+            tempo_inicio_morno_Aero=self.tempo_inicio_morno_Aero,
+            tempo_inicio_frio_Aero=self.tempo_inicio_frio_Aero,
+            custo_inicio_quente_Aero=self.custo_inicio_quente_Aero,
+            custo_inicio_morno_Aero=self.custo_inicio_morno_Aero,
+            custo_inicio_frio_Aero=self.custo_inicio_frio_Aero,
+            potencia_Heavy_Duty_GE_7F_05=self.potencia_Heavy_Duty_GE_7F_05,
+            custo_total_Heavy_Duty_GE_7F_05=self.custo_total_Heavy_Duty_GE_7F_05,
+            custo_OM_Heavy_Duty_GE_7F_05_espera=self.custo_OM_Heavy_Duty_GE_7F_05_espera,
+            eficiencia_Heavy_Duty=self.eficiencia_Heavy_Duty,
+            tempo_inicio_quente_Heavy_Duty=self.tempo_inicio_quente_Heavy_Duty,
+            tempo_inicio_morno_Heavy_Duty=self.tempo_inicio_morno_Heavy_Duty,
+            tempo_inicio_frio_Heavy_Duty=self.tempo_inicio_frio_Heavy_Duty,
+            custo_inicio_quente_Heavy_Duty=self.custo_inicio_quente_Heavy_Duty,
+            custo_inicio_morno_Heavy_Duty=self.custo_inicio_morno_Heavy_Duty,
+            custo_inicio_frio_Heavy_Duty=self.custo_inicio_frio_Heavy_Duty,
+            custo_combustivel_CCGT=self.custo_combustivel_CCGT
+        )
 
 
 if __name__ == "__main__":
