@@ -13,19 +13,36 @@ def criar_widget(description, value, disabled=False, widget_style={'description_
 
 
 class Constants:
+    """
+    Fontes:
+    - https://www.eia.gov/analysis/studies/powerplants/capitalcost/pdf/capital_cost_AEO2020.pdf
+    - https://www.ge.com/content/dam/gepower-new/global/en_US/downloads/gas-new-site/products/gas-turbines/7ha-fact-sheet-product-specifications.pdf
+    - https://etn.global/wp-content/uploads/2018/09/Startup_time_reduction_for_Combined_Cycle_Power_Plants.pdf
+    - https://www.nrel.gov/docs/fy12osti/55433.pdf
+    """
+
     def __init__(self):
 
         self.values = SimpleNamespace()
         self.widget_constants = SimpleNamespace(
+            # taxa de inflação em dólares corrigida em dólares https://www.bls.gov/data/inflation_calculator.htm
             inflation_multiplier=criar_widget(
                 'Multiplicador de Inflação', 1.33),
+            # Transformação de BTU/ft^3 (BTU sobre pé cubico) para MJ/m^3 (Megajoule sobre metro cúbico)
+            # Encontrado em: https://www.eia.gov/energyexplained/units-and-calculators/energy-conversion-calculators.php
             cubic_ft_to_m=criar_widget(
                 'Conversão de BTU/ft^3 para MJ/m^3', 28.3),
+            # Considerando que o preço do pé cúbico do gás natural é 0,27051 USD
+            # De acordo com: https://www.eia.gov/dnav/ng/hist/n3035us3A.htm
             NG_price=criar_widget(
                 'Preço do Pé Cúbico de Gás Natural (USD)', 7.66),
+            # Taxa de juros de 5% ao ano
             interest_rate=criar_widget('Taxa de Juros Anual', 0.05),
+            # Tempo para pagar o valor da turbina em 20 anos de 12 meses
             time_to_pay_turbine=criar_widget(
                 'Tempo para Pagar a Turbina (meses)', 20 * 12),
+
+            # Para a CCGT
             CCGT_power=criar_widget('Potência CCGT (MW)', 430),
             CCGT_capital_cost=criar_widget('Custo Capital CCGT ($/kW)', 1084),
             CCGT_OM_cost=criar_widget(
@@ -43,6 +60,8 @@ class Constants:
                 'Custo de Início Morno CCGT ($/MW)', 55),
             CCGT_cold_start_cost=criar_widget(
                 'Custo de Início Frio CCGT ($/MW)', 79),
+
+            # Para a Aero GT - modelo GE LM600: https://www.ge.com/gas-power/products/gas-turbines/lm6000
             Aero_power=criar_widget('Potência Aero GT (MW)', 106),
             Aero_total_cost=criar_widget('Custo Total Aero GT ($/kW)', 1175),
             Aero_OM_cost=criar_widget(
@@ -60,6 +79,8 @@ class Constants:
                 'Custo de Início Morno Aero GT ($/MW)', 24),
             Aero_cold_start_cost=criar_widget(
                 'Custo de Início Frio Aero GT ($/MW)', 32),
+
+            # Para a Heavy Duty - modelo GE 7F.05: https://www.ge.com/gas-power/products/gas-turbines/7f
             Heavy_Duty_power=criar_widget(
                 'Potência Heavy Duty GE 7F.05 (MW)', 239),
             Heavy_Duty_total_cost=criar_widget(
