@@ -32,9 +32,9 @@ class Constants:
         self.widget_constants = SimpleNamespace(
             # taxa de inflação em dólares corrigida em dólares https://www.bls.gov/data/inflation_calculator.htm
             inflation_multiplier_2012=criar_widget(
-                'Multiplicador de Inflação', 1.35),
+                'Multiplicador de Inflação 2012', 1.35),
             inflation_multiplier_2019=criar_widget(
-                'Multiplicador de Inflação', 1.19),
+                'Multiplicador de Inflação 2019', 1.19),
             # Transformação de BTU/ft^3 (BTU sobre pé cubico) para MJ/m^3 (Megajoule sobre metro cúbico)
             # Encontrado em: https://www.eia.gov/energyexplained/units-and-calculators/energy-conversion-calculators.php
             cubic_ft_to_m=criar_widget(
