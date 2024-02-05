@@ -31,6 +31,7 @@ class FormularioFurnas:
 
     def exibir_formulario(self):
         display(self.dropdown)
+        self.atualizar_valores()
 
     def manipulador_evento_dropdown(self, change):
         clear_output(wait=True)
