@@ -102,7 +102,7 @@ class FormularioFurnas:
             # Now create a DataFrame
             # Use a list to ensure it's treated as a single row
             df = pd.DataFrame([valores_dict])
-            df.to_csv('dados_personalizados.csv', index=False)
+            df.to_csv('src/content/dados_personalizados.csv', index=False)
             print("CSV exportado com sucesso!")
         except Exception as e:
             print(f"Erro ao exportar csv: {e}")
@@ -110,7 +110,7 @@ class FormularioFurnas:
     def manipulador_evento_carregar_csv(self, _):
         try:
             clear_output(wait=True)
-            df = pd.read_csv('dados_personalizados.csv')
+            df = pd.read_csv('src/content/dados_personalizados.csv')
             # Convert DataFrame to SimpleNamespace
             valores = SimpleNamespace(**df.to_dict(orient='records')[0])
             self.consts.set_personalized_values(valores)
