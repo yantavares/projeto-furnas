@@ -12,6 +12,11 @@ def criar_widget(description, value, disabled=False, widget_style={'description_
                      layout=widget_layout)
 
 
+def calcular_combustivel(Turbine_Power, efficiency):
+    Volume = Turbine_Power/efficiency
+    return (Volume)
+
+
 class Constants:
     """
     Fontes:
@@ -101,6 +106,7 @@ class Constants:
                 'Custo de Início Morno Heavy Duty GE 7F.05 ($/MW)', 58),
             Heavy_Duty_cold_start_cost=criar_widget(
                 'Custo de Início Frio Heavy Duty GE 7F.05 ($/MW)', 75),
+
         )
 
     def get_widgets(self):
@@ -115,7 +121,17 @@ class Constants:
         # Criar um novo SimpleNamespace com o dicionário transformado
         novo_namespace = SimpleNamespace(**novo_dicionario)
 
+        # Calcular o custo de combustível para a CCGT
+        novo_namespace.CCGT_Fuel_cost = calcular_combustivel(
+            novo_namespace.CCGT_power, novo_namespace.CCGT_efficiency) * novo_namespace.NG_price * novo_namespace.cubic_ft_to_m
+
         self.values = novo_namespace
 
     def get_values(self):
         return self.values
+
+
+if __name__ == "__main__":
+    c = Constants()
+    c.set_values()
+    print(c.get_values())
