@@ -1,7 +1,9 @@
 from IPython.display import display, clear_output
 from ipywidgets import Button, Dropdown, VBox, HBox, Layout
+import pandas as pd
+from types import SimpleNamespace
 if __name__ == "__main__":
-    from modules.ConstHandler import Constants
+    from ConstHandler import Constants
 else:
     from .ConstHandler import Constants
 
@@ -20,11 +22,17 @@ class FormularioFurnas:
         )
         self.criar_widgets_dados()
         self.botao_enviar = Button(
-            description='Enviar', layout=Layout(width='auto', margin='0 auto'))
+            description='Enviar', layout=Layout(width='auto', margin='10px auto'))
+        self.botao_exportar_csv = Button(
+            description='Exportar CSV')
+        self.botao_carregar_csv = Button(
+            description='Carregar CSV')
 
     def configurar_observadores(self):
         self.dropdown.observe(self.manipulador_evento_dropdown, names='value')
         self.botao_enviar.on_click(self.manipulador_evento_botao_enviar)
+        self.botao_exportar_csv.on_click(self.manipulador_evento_baixar_csv)
+        self.botao_carregar_csv.on_click(self.manipulador_evento_carregar_csv)
 
     def criar_widgets_dados(self):
         widgets = self.consts.get_widgets()
@@ -58,12 +66,15 @@ class FormularioFurnas:
                     break
 
         rows.append([self.botao_enviar])
+
         form = VBox([HBox([element for element in row]) for row in rows])
         return form
 
     def exibir_formulario_dados_personalizados(self):
         # Exibir o formulário
         display(self.formulario_namespace(self.consts.get_widgets()))
+        display(
+            HBox([self.botao_exportar_csv, self.botao_carregar_csv]))
 
     def atualizar_valores(self):
         self.consts.set_values()
@@ -77,6 +88,36 @@ class FormularioFurnas:
 
     def recuperar_valores(self):
         return self.consts.get_values()
+
+    def manipulador_evento_baixar_csv(self, _):
+        try:
+            valores = self.recuperar_valores()
+
+            # Convert SimpleNamespace to dictionary
+            if isinstance(valores, SimpleNamespace):
+                valores_dict = vars(valores)
+            else:
+                valores_dict = valores  # Assuming it's already a dict or compatible format
+
+            # Now create a DataFrame
+            # Use a list to ensure it's treated as a single row
+            df = pd.DataFrame([valores_dict])
+            df.to_csv('dados_personalizados.csv', index=False)
+            print("CSV exportado com sucesso!")
+        except Exception as e:
+            print(f"Erro ao exportar csv: {e}")
+
+    def manipulador_evento_carregar_csv(self, _):
+        try:
+            clear_output(wait=True)
+            df = pd.read_csv('dados_personalizados.csv')
+            # Convert DataFrame to SimpleNamespace
+            valores = SimpleNamespace(**df.to_dict(orient='records')[0])
+            self.consts.set_personalized_values(valores)
+            self.exibir_formulario_dados_personalizados()
+            print("CSV carregado com sucesso!")
+        except Exception as e:
+            print(f"Erro ao carregar csv: {e}")
 
 
 if __name__ == "__main__":
