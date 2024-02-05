@@ -31,8 +31,10 @@ class Constants:
         self.values = SimpleNamespace()
         self.widget_constants = SimpleNamespace(
             # taxa de inflação em dólares corrigida em dólares https://www.bls.gov/data/inflation_calculator.htm
-            inflation_multiplier=criar_widget(
-                'Multiplicador de Inflação', 1.33),
+            inflation_multiplier_2012=criar_widget(
+                'Multiplicador de Inflação', 1.35),
+            inflation_multiplier_2019=criar_widget(
+                'Multiplicador de Inflação', 1.19),
             # Transformação de BTU/ft^3 (BTU sobre pé cubico) para MJ/m^3 (Megajoule sobre metro cúbico)
             # Encontrado em: https://www.eia.gov/energyexplained/units-and-calculators/energy-conversion-calculators.php
             cubic_ft_to_m=criar_widget(
@@ -122,8 +124,8 @@ class Constants:
         novo_namespace = SimpleNamespace(**novo_dicionario)
 
         # Calcular o custo de combustível para a CCGT
-        novo_namespace.CCGT_Fuel_cost = calcular_combustivel(
-            novo_namespace.CCGT_power, novo_namespace.CCGT_efficiency) * novo_namespace.NG_price * novo_namespace.cubic_ft_to_m
+        novo_namespace.CCGT_Fuel_cost = round(calcular_combustivel(
+            novo_namespace.CCGT_power, novo_namespace.CCGT_efficiency) * novo_namespace.NG_price * novo_namespace.cubic_ft_to_m, 2)
 
         self.values = novo_namespace
 
