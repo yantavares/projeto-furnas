@@ -6,7 +6,7 @@ O Projeto Furnas, patrocinado pela Eletrobras Furnas e desenvolvido pela Univers
 
 ### Objetivos
 
-O principal objetivo deste repositório é servir como um centralizador para os códigos desenvolvidos durante a pesquisa. Ele facilita o acesso aos desenvolvimentos mais recentes pelos membros da equipe de pesquisa e parceiros envolvidos, além de documentar as soluções criadas para desafios específicos encontrados no estudo dos gastos energéticos.
+O principal objetivo deste repositório é servir como um centralizador para os módulos necessários para a execução do projeto. Os módulos são desenvolvidos em Python e podem ser utilizados para análise de dados, modelagem computacional e outras tarefas relacionadas ao projeto, não funcionando como uma aplicação final, mas como uma base para o desenvolvimento de soluções específicas.
 
 ## Estrutura do Repositório
 
