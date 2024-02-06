@@ -1,5 +1,11 @@
 from types import SimpleNamespace
 from ipywidgets import FloatText, Layout
+if __name__ == "__main__":
+    from validData import ValidData
+else:
+    from .validData import ValidData
+
+VALID = ValidData.get_valid_data()
 
 
 def criar_widget(description, value, disabled=False, widget_style={'description_width': '300px'}, widget_layout=Layout(width='auto', margin='5px auto')):
@@ -32,11 +38,15 @@ def convert_to_widget(a):
     a_dict = vars(a)
 
     # Apply function f to each value of the dictionary
-    b_dict = {k: criar_widget(k, v) for k, v in a_dict.items()}
-    # Convert the modified dictionary back to SimpleNamespace
-    b = SimpleNamespace(**b_dict)
+    try:
+        b_dict = {k: criar_widget(VALID[k], v)
+                  for k, v in a_dict.items()}
 
-    return b
+        b = SimpleNamespace(**b_dict)
+        return b
+    except:
+        print("Valor inválido de variável. Verifique os dados inseridos!")
+        return a
 
 
 class Constants:
@@ -98,8 +108,17 @@ class Constants:
         self.values = novo_namespace
 
     def set_personalized_values(self, values):
-        self.values = values
-        self.widget_constants = convert_to_widget(self.values)
+        try:
+            for key, _ in vars(values).items():
+                if key not in VALID.keys():
+                    raise ValueError("Chave inválida!", key)
+
+            self.values = values
+            self.widget_constants = convert_to_widget(self.values)
+
+        except Exception as e:
+            raise ValueError(
+                "Erro ao atualizar valores personalizados: ", e)
 
     def get_values(self):
         return self.values

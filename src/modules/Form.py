@@ -97,12 +97,12 @@ class FormularioFurnas:
             if isinstance(valores, SimpleNamespace):
                 valores_dict = vars(valores)
             else:
-                valores_dict = valores  # Assuming it's already a dict or compatible format
+                valores_dict = valores
 
             # Now create a DataFrame
             # Use a list to ensure it's treated as a single row
             df = pd.DataFrame([valores_dict])
-            df.to_csv('src/content/dados_personalizados.csv', index=False)
+            df.to_csv('src/content/dados.csv', index=False)
             print("CSV exportado com sucesso!")
         except Exception as e:
             print(f"Erro ao exportar csv: {e}")
@@ -110,14 +110,22 @@ class FormularioFurnas:
     def manipulador_evento_carregar_csv(self, _):
         try:
             clear_output(wait=True)
-            df = pd.read_csv('src/content/dados_personalizados.csv')
-            # Convert DataFrame to SimpleNamespace
-            valores = SimpleNamespace(**df.to_dict(orient='records')[0])
-            self.consts.set_personalized_values(valores)
-            self.exibir_formulario_dados_personalizados()
-            print("CSV carregado com sucesso!")
+            try:
+                df = pd.read_csv('src/content/dados.csv')
+                # Convert DataFrame to SimpleNamespace
+                valores = SimpleNamespace(**df.to_dict(orient='records')[0])
+                self.consts.set_personalized_values(valores)
+                self.exibir_formulario_dados_personalizados()
+                print("CSV carregado com sucesso!")
+            except FileNotFoundError:
+                self.exibir_formulario_dados_personalizados()
+                print("Arquivo não encontrado!")
+                print(
+                    "Por favor, exporte um arquivo CSV ou adicione um arquivo CSV na pasta 'content' e tente novamente")
         except Exception as e:
-            print(f"Erro ao carregar csv: {e}")
+            self.exibir_formulario_dados_personalizados()
+            print(f"Erro ao carregar csv: verifique os dados inseridos!")
+            print(f"Erro: {e}")
 
 
 if __name__ == "__main__":
