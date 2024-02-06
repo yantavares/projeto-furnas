@@ -1,14 +1,28 @@
+# Importações necessárias para definir os widgets e manipular namespaces
 from types import SimpleNamespace
 from ipywidgets import FloatText, Layout
-if __name__ == "__main__":
-    from validData import ValidData
-else:
-    from .validData import ValidData
 
+# Importação condicional para garantir compatibilidade tanto em scripts quanto em pacotes
+if __name__ == "__main__":
+    from ValidData import ValidData
+else:
+    from .ValidData import ValidData
+
+# Obtenção dos dados válidos a partir da classe ValidData
 VALID = ValidData.get_valid_data()
 
 
 def criar_widget(description, value, disabled=False, widget_style={'description_width': '300px'}, widget_layout=Layout(width='auto', margin='5px auto')):
+    """
+    Cria e retorna um widget FloatText para entrada de dados numéricos.
+
+    :param description: Descrição do widget (aparece ao lado do campo de entrada).
+    :param value: Valor inicial do widget.
+    :param disabled: Define se o widget está desativado.
+    :param widget_style: Estilo CSS do widget.
+    :param widget_layout: Layout CSS do widget.
+    :return: Instância do widget FloatText configurado.
+    """
     return FloatText(description=description,
                      title=description,
                      label=description,
@@ -19,29 +33,46 @@ def criar_widget(description, value, disabled=False, widget_style={'description_
 
 
 def calcular_combustivel(Turbine_Power, efficiency):
-    Volume = Turbine_Power/efficiency
-    return (Volume)
+    """
+    Calcula o volume de combustível necessário com base na potência da turbina e sua eficiência.
+
+    :param Turbine_Power: Potência da turbina.
+    :param efficiency: Eficiência da turbina.
+    :return: Volume de combustível necessário.
+    """
+    Volume = Turbine_Power / efficiency
+    return Volume
 
 
 def map_simple_namespace(a, f):
-    # Convert SimpleNamespace to dictionary
+    """
+    Aplica uma função a cada valor dentro de um SimpleNamespace e retorna um novo SimpleNamespace com os resultados.
+
+    :param a: SimpleNamespace original.
+    :param f: Função a ser aplicada a cada valor.
+    :return: Novo SimpleNamespace com valores modificados.
+    """
+    # Converte o SimpleNamespace em dicionário
     a_dict = vars(a)
-    # Apply function f to each value of the dictionary
+    # Aplica a função f a cada valor do dicionário
     b_dict = {k: f(v) for k, v in a_dict.items()}
-    # Convert the modified dictionary back to SimpleNamespace
+    # Converte o dicionário modificado de volta para SimpleNamespace
     b = SimpleNamespace(**b_dict)
     return b
 
 
 def convert_to_widget(a):
-    # Convert SimpleNamespace to dictionary
+    """
+    Converte um SimpleNamespace em um conjunto de widgets, baseando-se nas chaves válidas.
+
+    :param a: SimpleNamespace contendo os valores a serem convertidos em widgets.
+    :return: SimpleNamespace contendo os widgets.
+    """
+    # Converte o SimpleNamespace em dicionário
     a_dict = vars(a)
-
-    # Apply function f to each value of the dictionary
     try:
-        b_dict = {k: criar_widget(VALID[k], v)
-                  for k, v in a_dict.items()}
-
+        # Cria um dicionário de widgets usando criar_widget para cada valor
+        b_dict = {k: criar_widget(VALID[k], v) for k, v in a_dict.items()}
         b = SimpleNamespace(**b_dict)
         return b
     except:
@@ -51,78 +82,52 @@ def convert_to_widget(a):
 
 class Constants:
     """
-    Fontes:
-    - https://www.eia.gov/analysis/studies/powerplants/capitalcost/pdf/capital_cost_AEO2020.pdf
-    - https://www.ge.com/content/dam/gepower-new/global/en_US/downloads/gas-new-site/products/gas-turbines/7ha-fact-sheet-product-specifications.pdf
-    - https://etn.global/wp-content/uploads/2018/09/Startup_time_reduction_for_Combined_Cycle_Power_Plants.pdf
-    - https://www.nrel.gov/docs/fy12osti/55433.pdf
+    Classe para gerenciar constantes e valores do formulário, incluindo a criação de widgets correspondentes.
+
+    As fontes para os dados incluem publicações da EIA, GE, ETN, e NREL.
     """
 
     def __init__(self):
+        # Inicialização dos valores padrão
+        self.values = ValidData.get_initial_values()
 
-        self.values = SimpleNamespace(
-            inflation_multiplier_2012=1.35,
-            inflation_multiplier_2019=1.19,
-            cubic_ft_to_m=28.3,
-            NG_price=7.66,
-            interest_rate=0.05,
-            time_to_pay_turbine=20 * 12,
-            CCGT_power=430,
-            CCGT_capital_cost=1084,
-            CCGT_OM_cost=14.1 * 1000,
-            CCGT_efficiency=0.623,
-            CCGT_hot_start_time=105,
-            CCGT_warm_start_time=105,
-            CCGT_cold_start_time=105,
-            CCGT_hot_start_cost=35,
-            CCGT_warm_start_cost=55,
-            CCGT_cold_start_cost=79,
-            Aero_power=106,
-            Aero_total_cost=1175,
-            Aero_OM_cost=16.3 * 1000,
-            Aero_efficiency=0.408,
-            Aero_hot_start_time=2,
-            Aero_warm_start_time=4,
-            Aero_cold_start_time=5,
-            Aero_hot_start_cost=19,
-            Aero_warm_start_cost=24,
-            Aero_cold_start_cost=32,
-            Heavy_Duty_power=239,
-            Heavy_Duty_total_cost=713,
-            Heavy_Duty_OM_cost=7 * 1000,
-            Heavy_Duty_efficiency=0.385,
-            Heavy_Duty_hot_start_time=20,
-            Heavy_Duty_warm_start_time=25,
-            Heavy_Duty_cold_start_time=25,
-        )
-
+        # Conversão dos valores para widgets
         self.widget_constants = convert_to_widget(self.values)
 
     def get_widgets(self):
+        """
+        Retorna os widgets correspondentes às constantes.
+        """
         return self.widget_constants
 
     def set_values(self):
+        """
+        Atualiza os valores das constantes com base nos valores inseridos nos widgets.
+        """
         novo_namespace = map_simple_namespace(
             self.widget_constants, lambda x: x.value)
-
         self.values = novo_namespace
 
     def set_personalized_values(self, values):
+        """
+        Define valores personalizados, garantindo que as chaves sejam válidas.
+        """
         try:
             for key, _ in vars(values).items():
                 if key not in VALID.keys():
                     raise ValueError("Chave inválida!", key)
-
             self.widget_constants = convert_to_widget(values)
-
         except Exception as e:
-            raise ValueError(
-                "Erro ao atualizar valores personalizados: ", e)
+            raise ValueError("Erro ao atualizar valores personalizados: ", e)
 
     def get_values(self):
+        """
+        Retorna os valores atualizados das constantes.
+        """
         return self.values
 
 
+# Bloco de execução principal para testar a classe Constants
 if __name__ == "__main__":
     c = Constants()
     c.set_values()

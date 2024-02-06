@@ -1,7 +1,10 @@
+# Importações necessárias para o funcionamento do formulário e manipulação de dados
 from IPython.display import display, clear_output
 from ipywidgets import Button, Dropdown, VBox, HBox, Layout
 import pandas as pd
 from types import SimpleNamespace
+
+# Importação condicional das constantes, dependendo do contexto de execução
 if __name__ == "__main__":
     from ConstHandler import Constants
 else:
@@ -10,11 +13,13 @@ else:
 
 class FormularioFurnas:
     def __init__(self):
+        # Inicialização das constantes e dos widgets do formulário
         self.consts = Constants()
         self.inicializar_widgets()
         self.configurar_observadores()
 
     def inicializar_widgets(self):
+        # Criação dos widgets do formulário
         self.dropdown = Dropdown(
             options=['Usar Dados Padrão', 'Usar Dados Personalizados'],
             description='Escolha:',
@@ -23,25 +28,27 @@ class FormularioFurnas:
         self.criar_widgets_dados()
         self.botao_enviar = Button(
             description='Enviar', layout=Layout(width='auto', margin='10px auto'))
-        self.botao_exportar_csv = Button(
-            description='Exportar CSV')
-        self.botao_carregar_csv = Button(
-            description='Carregar CSV')
+        self.botao_exportar_csv = Button(description='Exportar CSV')
+        self.botao_carregar_csv = Button(description='Carregar CSV')
 
     def configurar_observadores(self):
+        # Configuração dos observadores de eventos para os widgets
         self.dropdown.observe(self.manipulador_evento_dropdown, names='value')
         self.botao_enviar.on_click(self.manipulador_evento_botao_enviar)
         self.botao_exportar_csv.on_click(self.manipulador_evento_baixar_csv)
         self.botao_carregar_csv.on_click(self.manipulador_evento_carregar_csv)
 
     def criar_widgets_dados(self):
+        # Método placeholder para criação de widgets específicos de dados
         widgets = self.consts.get_widgets()
 
     def exibir_formulario(self):
+        # Exibe o widget dropdown do formulário
         display(self.dropdown)
         self.atualizar_valores()
 
     def manipulador_evento_dropdown(self, change):
+        # Lida com mudanças no valor selecionado do dropdown, reiniciando a exibição
         clear_output(wait=True)
         display(self.dropdown)
         if change.new == 'Usar Dados Personalizados':
@@ -50,7 +57,7 @@ class FormularioFurnas:
             self.consts = Constants()
 
     def formulario_namespace(self, namespace):
-        # Converte o SimpleNamespace em um dicionário
+        # Método para criar um formulário baseado em SimpleNamespace, organizando os widgets em linhas
         widgets = vars(namespace)
         rows = []
         dict_iterator = iter(widgets.items())
@@ -68,20 +75,20 @@ class FormularioFurnas:
                     break
 
         rows.append([self.botao_enviar])
-
         form = VBox([HBox([element for element in row]) for row in rows])
         return form
 
     def exibir_formulario_dados_personalizados(self):
-        # Exibir o formulário
+        # Método para exibir o formulário de dados personalizados, incluindo botões de exportar e carregar CSV
         display(self.formulario_namespace(self.consts.get_widgets()))
-        display(
-            HBox([self.botao_exportar_csv, self.botao_carregar_csv]))
+        display(HBox([self.botao_exportar_csv, self.botao_carregar_csv]))
 
     def atualizar_valores(self):
+        # Atualiza os valores baseando-se nas entradas do usuário ou dados padrão
         self.consts.set_values()
 
     def manipulador_evento_botao_enviar(self, _):
+        # Manipulador de evento para o botão de enviar, atualizando os valores
         try:
             self.atualizar_valores()
             print("Valores atualizados com sucesso!")
@@ -89,20 +96,21 @@ class FormularioFurnas:
             print(f"Erro ao atualizar valores: {e}")
 
     def recuperar_valores(self):
+        # Retorna os valores atualizados do formulário
         return self.consts.get_values()
 
     def manipulador_evento_baixar_csv(self, _):
+        # Manipulador de evento para o botão de exportar para CSV
         try:
             valores = self.recuperar_valores()
 
-            # Convert SimpleNamespace to dictionary
+            # Conversão de SimpleNamespace para dicionário, se necessário
             if isinstance(valores, SimpleNamespace):
                 valores_dict = vars(valores)
             else:
                 valores_dict = valores
 
-            # Now create a DataFrame
-            # Use a list to ensure it's treated as a single row
+            # Criação de DataFrame e exportação para CSV
             df = pd.DataFrame([valores_dict])
             df.to_csv('src/content/dados.csv', index=False)
             print("CSV exportado com sucesso!")
@@ -110,15 +118,16 @@ class FormularioFurnas:
             print(f"Erro ao exportar csv: {e}")
 
     def exibir_formulario_dados_personalizados_e_dropdown(self):
+        # Exibe o dropdown e o formulário de dados personalizados
         display(self.dropdown)
         self.exibir_formulario_dados_personalizados()
 
     def manipulador_evento_carregar_csv(self, _):
+        # Manipulador de evento para o botão de carregar CSV
         try:
             clear_output(wait=True)
             try:
                 df = pd.read_csv('src/content/dados.csv')
-                # Convert DataFrame to SimpleNamespace
                 valores = SimpleNamespace(**df.to_dict(orient='records')[0])
                 self.consts.set_personalized_values(valores)
                 self.exibir_formulario_dados_personalizados_e_dropdown()
@@ -134,6 +143,7 @@ class FormularioFurnas:
             print(f"Erro: {e}")
 
 
+# Execução principal do script, caso este arquivo seja o ponto de entrada
 if __name__ == "__main__":
     formulario = FormularioFurnas()
     formulario.exibir_formulario()
