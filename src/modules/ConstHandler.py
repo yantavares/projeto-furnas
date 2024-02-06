@@ -113,8 +113,7 @@ class Constants:
                 if key not in VALID.keys():
                     raise ValueError("Chave inválida!", key)
 
-            self.values = values
-            self.widget_constants = convert_to_widget(self.values)
+            self.widget_constants = convert_to_widget(values)
 
         except Exception as e:
             raise ValueError(

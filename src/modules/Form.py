@@ -46,6 +46,8 @@ class FormularioFurnas:
         display(self.dropdown)
         if change.new == 'Usar Dados Personalizados':
             self.exibir_formulario_dados_personalizados()
+        else:
+            self.consts = Constants()
 
     def formulario_namespace(self, namespace):
         # Converte o SimpleNamespace em um dicionário
@@ -107,6 +109,10 @@ class FormularioFurnas:
         except Exception as e:
             print(f"Erro ao exportar csv: {e}")
 
+    def exibir_formulario_dados_personalizados_e_dropdown(self):
+        display(self.dropdown)
+        self.exibir_formulario_dados_personalizados()
+
     def manipulador_evento_carregar_csv(self, _):
         try:
             clear_output(wait=True)
@@ -115,15 +121,15 @@ class FormularioFurnas:
                 # Convert DataFrame to SimpleNamespace
                 valores = SimpleNamespace(**df.to_dict(orient='records')[0])
                 self.consts.set_personalized_values(valores)
-                self.exibir_formulario_dados_personalizados()
+                self.exibir_formulario_dados_personalizados_e_dropdown()
                 print("CSV carregado com sucesso!")
             except FileNotFoundError:
-                self.exibir_formulario_dados_personalizados()
+                self.exibir_formulario_dados_personalizados_e_dropdown()
                 print("Arquivo não encontrado!")
                 print(
                     "Por favor, exporte um arquivo CSV ou adicione um arquivo CSV na pasta 'content' e tente novamente")
         except Exception as e:
-            self.exibir_formulario_dados_personalizados()
+            self.exibir_formulario_dados_personalizados_e_dropdown()
             print(f"Erro ao carregar csv: verifique os dados inseridos!")
             print(f"Erro: {e}")
 
