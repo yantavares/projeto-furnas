@@ -124,23 +124,22 @@ class FormularioFurnas:
 
     def manipulador_evento_carregar_csv(self, _):
         # Manipulador de evento para o botão de carregar CSV
+        clear_output(wait=True)
         try:
-            clear_output(wait=True)
-            try:
-                df = pd.read_csv('src/content/dados.csv')
-                valores = SimpleNamespace(**df.to_dict(orient='records')[0])
-                self.consts.set_personalized_values(valores)
-                self.exibir_formulario_dados_personalizados_e_dropdown()
-                print("CSV carregado com sucesso!")
-            except FileNotFoundError:
-                self.exibir_formulario_dados_personalizados_e_dropdown()
-                print("Arquivo não encontrado!")
-                print(
-                    "Por favor, exporte um arquivo CSV ou adicione um arquivo CSV na pasta 'content' e tente novamente")
+            df = pd.read_csv('src/content/dados.csv')
+            valores = SimpleNamespace(**df.to_dict(orient='records')[0])
+            self.consts.set_personalized_values(valores)
+            print("CSV carregado com sucesso!")
+        except FileNotFoundError:
+            print("Arquivo não encontrado!")
+            print(
+                "Por favor, exporte um arquivo CSV ou adicione um arquivo CSV na pasta 'content' e tente novamente")
         except Exception as e:
-            self.exibir_formulario_dados_personalizados_e_dropdown()
             print(f"Erro ao carregar csv: verifique os dados inseridos!")
             print(f"Erro: {e}")
+        finally:
+            # Após o carregamento (bem-sucedido ou não), atualize a interface do usuário
+            self.exibir_formulario_dados_personalizados_e_dropdown()
 
 
 # Execução principal do script, caso este arquivo seja o ponto de entrada
