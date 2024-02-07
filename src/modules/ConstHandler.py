@@ -11,8 +11,11 @@ else:
 # Obtenção dos dados válidos a partir da classe ValidData
 VALID = ValidData.get_valid_data()
 
+# Obtenção dos dados iniciais a partir da classe ValidData
+INITIAL = ValidData.get_initial_values()
 
-def criar_widget(description, value, disabled=False, widget_style={'description_width': '300px'}, widget_layout=Layout(width='auto', margin='5px auto')):
+
+def criar_widget(description, value, disabled=False, widget_style={'description_width': '300px'}, widget_layout=Layout(width='auto', margin='5px')):
     """
     Cria e retorna um widget FloatText para entrada de dados numéricos.
 
@@ -116,6 +119,8 @@ class Constants:
             for key, _ in vars(values).items():
                 if key not in VALID.keys():
                     raise ValueError("Chave inválida!", key)
+
+            values = self.patch_values(values)
             self.widget_constants = convert_to_widget(values)
         except Exception as e:
             raise ValueError("Erro ao atualizar valores personalizados: ", e)
@@ -125,6 +130,24 @@ class Constants:
         Retorna os valores atualizados das constantes.
         """
         return self.values
+
+    def patch_values(self, new_values: SimpleNamespace, initial_values=INITIAL):
+        """
+        Adiciona campos faltantes com valores padrão e atualiza os valores das constantes com base nos valores inseridos.
+        """
+        new_values_pacthed = SimpleNamespace()
+        try:
+            for key, value in vars(initial_values).items():
+                if key not in vars(new_values).keys():
+                    print(f"Chave {key} não encontrada. Usando valor padrão.")
+                    setattr(new_values_pacthed, key, value)
+                else:
+                    setattr(new_values_pacthed, key, getattr(new_values, key))
+
+            return new_values_pacthed
+
+        except Exception as e:
+            raise ValueError("Erro ao atualizar valores personalizados: ", e)
 
 
 # Bloco de execução principal para testar a classe Constants

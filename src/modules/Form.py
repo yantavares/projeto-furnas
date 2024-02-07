@@ -61,18 +61,22 @@ class FormularioFurnas:
         widgets = vars(namespace)
         rows = []
         dict_iterator = iter(widgets.items())
+        last_element = None
 
         while True:
             try:
                 _, element1 = next(dict_iterator)
-                _, element2 = next(dict_iterator)
-                rows.append([element1, element2])
-            except StopIteration:
                 try:
-                    _, element1 = next(dict_iterator)
-                    rows.append([element1])
+                    _, element2 = next(dict_iterator)
+                    rows.append([element1, element2])
                 except StopIteration:
+                    last_element = element1  # Salva o último elemento se não houver par para ele
                     break
+            except StopIteration:
+                break
+
+        if last_element is not None:
+            rows.append([last_element])
 
         rows.append([self.botao_enviar])
         form = VBox([HBox([element for element in row]) for row in rows])
