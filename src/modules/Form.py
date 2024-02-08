@@ -3,6 +3,7 @@ from IPython.display import display, clear_output
 from ipywidgets import Button, Dropdown, VBox, HBox, Layout
 import pandas as pd
 from types import SimpleNamespace
+import os
 
 from ConstHandler import Constants
 
@@ -112,7 +113,12 @@ class FormularioFurnas:
 
             # Criação de DataFrame e exportação para CSV
             df = pd.DataFrame([valores_dict])
-            df.to_csv('src/content/dados.csv', index=False)
+
+            if not os.path.exists('./content'):
+                os.makedirs('./content')
+
+            df.to_csv('./content/dados.csv', index=False)
+
             print("CSV exportado com sucesso!")
         except Exception as e:
             print(f"Erro ao exportar csv: {e}")
@@ -126,7 +132,7 @@ class FormularioFurnas:
         # Manipulador de evento para o botão de carregar CSV
         clear_output(wait=False)
         try:
-            df = pd.read_csv('src/content/dados.csv')
+            df = pd.read_csv('./content/dados.csv')
             valores = SimpleNamespace(**df.to_dict(orient='records')[0])
             self.consts.set_personalized_values(valores)
             msg1 = "CSV carregado com sucesso!"
