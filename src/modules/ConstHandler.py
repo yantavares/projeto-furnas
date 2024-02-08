@@ -2,11 +2,8 @@
 from types import SimpleNamespace
 from ipywidgets import FloatText, Layout
 
-# Importação condicional para garantir compatibilidade tanto em scripts quanto em pacotes
-if __name__ == "__main__":
-    from ValidData import ValidData
-else:
-    from .ValidData import ValidData
+from ValidData import ValidData
+
 
 # Obtenção dos dados válidos a partir da classe ValidData
 VALID = ValidData.get_valid_data()

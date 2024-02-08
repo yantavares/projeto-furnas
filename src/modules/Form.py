@@ -4,11 +4,7 @@ from ipywidgets import Button, Dropdown, VBox, HBox, Layout
 import pandas as pd
 from types import SimpleNamespace
 
-# Importação condicional das constantes, dependendo do contexto de execução
-if __name__ == "__main__":
-    from ConstHandler import Constants
-else:
-    from .ConstHandler import Constants
+from ConstHandler import Constants
 
 
 class FormularioFurnas:
