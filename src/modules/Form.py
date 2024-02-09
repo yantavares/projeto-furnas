@@ -51,6 +51,7 @@ class FormularioFurnas:
         if change.new == 'Usar Dados Personalizados':
             self.exibir_formulario_dados_personalizados()
         else:
+            display("Test")
             self.consts = Constants()
 
     def formulario_namespace(self, namespace):

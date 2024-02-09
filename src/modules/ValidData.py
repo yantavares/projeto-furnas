@@ -38,6 +38,15 @@ class ValidData:
         "Heavy_Duty_cold_start_time": "Tempo de partida fria da Heavy Duty (min)",
     }
 
+    SOURCES = {
+        "Multiplicadores de inflação": "https://www.bls.gov/data/inflation_calculator.htm",
+        "Conversão de pés cúbicos para metros cúbicos": "https://www.eia.gov/energyexplained/units-and-calculators/energy-conversion-calculators.php",
+        "Preço de gás natural": "https://www.eia.gov/dnav/ng/hist/n3035us3A.htm",
+        "Dados sobre CCGT": "https://www.ge.com/gas-power/products/gas-turbines/7ha",
+        "Dados sobre AeroGT": "https://www.ge.com/gas-power/products/gas-turbines/lm6000",
+        "Dados sobre Heavy Duty": "https://www.ge.com/gas-power/products/gas-turbines/7f",
+    }
+
     # Definição de constantes que serão utilizadas como constantes no programa
     INITIAL_VALUES = SimpleNamespace(
         # taxa de inflação em dólares corrigida em dólares https://www.bls.gov/data/inflation_calculator.htm
