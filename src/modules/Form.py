@@ -9,8 +9,17 @@ from ConstHandler import Constants
 
 
 class FormularioFurnas:
+
     def __init__(self):
         # Inicialização das constantes e dos widgets do formulário
+        self.sources = {
+            "Multiplicadores de inflação": "https://www.bls.gov/data/inflation_calculator.htm",
+            "Conversão de pés cúbicos para metros cúbicos": "https://www.eia.gov/energyexplained/units-and-calculators/energy-conversion-calculators.php",
+            "Preço de gás natural": "https://www.eia.gov/dnav/ng/hist/n3035us3A.htm",
+            "Dados sobre CCGT": "https://www.ge.com/gas-power/products/gas-turbines/7ha",
+            "Dados sobre AeroGT": "https://www.ge.com/gas-power/products/gas-turbines/lm6000",
+            "Dados sobre Heavy Duty": "https://www.ge.com/gas-power/products/gas-turbines/7f",
+        }
         self.consts = Constants()
         self.inicializar_widgets()
         self.configurar_observadores()
@@ -42,6 +51,8 @@ class FormularioFurnas:
     def exibir_formulario(self):
         # Exibe o widget dropdown do formulário
         display(self.dropdown)
+        display(self.sources)
+
         self.atualizar_valores()
 
     def manipulador_evento_dropdown(self, change):
@@ -51,7 +62,7 @@ class FormularioFurnas:
         if change.new == 'Usar Dados Personalizados':
             self.exibir_formulario_dados_personalizados()
         else:
-            display("Test")
+            display(self.sources)
             self.consts = Constants()
 
     def formulario_namespace(self, namespace):
