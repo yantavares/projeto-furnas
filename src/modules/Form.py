@@ -19,6 +19,7 @@ class FormularioFurnas:
             "Dados sobre CCGT": "https://www.ge.com/gas-power/products/gas-turbines/7ha",
             "Dados sobre AeroGT": "https://www.ge.com/gas-power/products/gas-turbines/lm6000",
             "Dados sobre Heavy Duty": "https://www.ge.com/gas-power/products/gas-turbines/7f",
+            "Dados sobre custos de partida": "https://www.nrel.gov/docs/fy12osti/55433.pdf",
         }
         self.consts = Constants()
         self.inicializar_widgets()

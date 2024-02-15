@@ -36,6 +36,9 @@ class ValidData:
         "Heavy_Duty_hot_start_time": "Tempo de partida quente da Heavy Duty (min)",
         "Heavy_Duty_warm_start_time": "Tempo de partida morna da Heavy Duty (min)",
         "Heavy_Duty_cold_start_time": "Tempo de partida fria da Heavy Duty (min)",
+        "Heavy_Duty_hot_start_cost": "Custo de partida quente da Heavy Duty (US$/MW)",
+        "Heavy_Duty_warm_start_cost": "Custo de partida morna da Heavy Duty (US$/MW)",
+        "Heavy_Duty_cold_start_cost": "Custo de partida fria da Heavy Duty (US$/MW)",
     }
 
     # Definição de constantes que serão utilizadas como constantes no programa
@@ -83,6 +86,9 @@ class ValidData:
         Heavy_Duty_hot_start_time=20,  # Minutos
         Heavy_Duty_warm_start_time=25,  # Minutos
         Heavy_Duty_cold_start_time=25,  # Minutos
+        Heavy_Duty_hot_start_cost=36,  # $/MW
+        Heavy_Duty_warm_start_cost=58,  # $/MW
+        Heavy_Duty_cold_start_cost=75,  # $/MW
 
         # Fontes:
         # - https://www.eia.gov/analysis/studies/powerplants/capitalcost/pdf/capital_cost_AEO2020.pdf
