@@ -5,7 +5,7 @@ class ValidData:
     VALID = {
         "inflation_multiplier_2012": "Multiplicador de inflação (2012)",
         "inflation_multiplier_2019": "Multiplicador de inflação (2019)",
-        "cubic_ft_to_m": "Conversão de pés cúbicos para metros cúbicos",
+        "cubic_m_to_ft": "Conversão de metros cúbicos para pés cúbicos",
         "NG_price": "Preço do gás natural",
         "interest_rate": "Taxa de juros",
         "time_to_pay_turbine": "Tempo para pagar a turbina (meses)",
@@ -31,7 +31,7 @@ class ValidData:
         "Aero_cold_start_cost": "Custo de partida fria da Aero GT (US$/MW)",
         "Heavy_Duty_power": "Potência da Heavy Duty (MW)",
         "Heavy_Duty_total_cost": "Custo total da Heavy Duty (US$/kW)",
-        "Heavy_Duty_OM_cost": "Custo de manutenção da Heavy Duty (US$/MW por ano)",
+        "Heavy_Duty_OM_cost": "Custo de manutenção Heavy Duty (US$/MW por ano)",
         "Heavy_Duty_efficiency": "Eficiência da Heavy Duty",
         "Heavy_Duty_hot_start_time": "Tempo de partida quente da Heavy Duty (min)",
         "Heavy_Duty_warm_start_time": "Tempo de partida morna da Heavy Duty (min)",
@@ -45,7 +45,7 @@ class ValidData:
         inflation_multiplier_2019=1.19,
         # Transformação de BTU/ft^3 (BTU sobre pé cubico) para MJ/m^3 (Megajoule sobre metro cúbico)
         # Encontrado em: https://www.eia.gov/energyexplained/units-and-calculators/energy-conversion-calculators.php
-        cubic_ft_to_m=28.3,
+        cubic_m_to_ft=35.3,
         # Considerando que o preço do pé cúbico do gás natural é 0,27051 USD
         # De acordo com: https://www.eia.gov/dnav/ng/hist/n3035us3A.htm
         NG_price=7.66,

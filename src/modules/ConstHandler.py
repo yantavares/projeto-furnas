@@ -12,7 +12,7 @@ VALID = ValidData.get_valid_data()
 INITIAL = ValidData.get_initial_values()
 
 
-def criar_widget(description, value, disabled=False, widget_style={'description_width': '300px'}, widget_layout=Layout(width='auto', margin='5px')):
+def criar_widget(description, value, disabled=False, widget_style={'description_width': '325px'}, widget_layout=Layout(width='auto', margin='5px')):
     """
     Cria e retorna um widget FloatText para entrada de dados numéricos.
 
