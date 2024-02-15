@@ -60,7 +60,6 @@ class FormularioFurnas:
             HTML(value=f'<h3 style="margin:0 padding:0">Fontes:</h3>')]
         for chave, valor in self.sources.items():
             chave_widget = HTML(value=f'<strong>{chave}:</strong>')
-            # Aqui, supomos que o valor é uma URL. Ajuste o texto do link conforme necessário.
             valor_widget = HTML(
                 value=f'<a href="{valor}" style="color:blue" target="_blank">{valor}</a>')
             widgets_para_exibir.append(HBox([chave_widget, valor_widget]))
