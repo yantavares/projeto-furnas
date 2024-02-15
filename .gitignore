@@ -1,3 +1,6 @@
 projeto.ipynb
 format.py
 .ipynb_checkpoints
+__pycache__
+projeto-checkpoint.ipynb
+.vscode
