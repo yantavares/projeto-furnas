@@ -61,7 +61,7 @@ class FormularioFurnas:
         for chave, valor in self.sources.items():
             chave_widget = HTML(value=f'<strong>{chave}:</strong>')
             valor_widget = HTML(
-                value=f'<a href="{valor}" style="color:blue" target="_blank">{valor}</a>')
+                value=f'<a href="{valor}" style="color: #b8c730" target="_blank">{valor}</a>')
             widgets_para_exibir.append(HBox([chave_widget, valor_widget]))
 
         # Exibe todos os widgets de uma vez usando VBox para um layout vertical
