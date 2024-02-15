@@ -1,6 +1,6 @@
 # Importações necessárias para o funcionamento do formulário e manipulação de dados
 from IPython.display import display, clear_output
-from ipywidgets import Button, Dropdown, VBox, HBox, Layout
+from ipywidgets import Button, Dropdown, VBox, HBox, Layout, HTML
 import pandas as pd
 from types import SimpleNamespace
 import os
@@ -51,9 +51,22 @@ class FormularioFurnas:
     def exibir_formulario(self):
         # Exibe o widget dropdown do formulário
         display(self.dropdown)
-        display(self.sources)
-
+        self.exibir_fontes()
         self.atualizar_valores()
+
+    def exibir_fontes(self):
+        # Widgets para os itens em self.sources
+        widgets_para_exibir = [
+            HTML(value=f'<h3 style="margin:0 padding:0">Fontes:</h3>')]
+        for chave, valor in self.sources.items():
+            chave_widget = HTML(value=f'<strong>{chave}:</strong>')
+            # Aqui, supomos que o valor é uma URL. Ajuste o texto do link conforme necessário.
+            valor_widget = HTML(
+                value=f'<a href="{valor}" style="color:blue" target="_blank">{valor}</a>')
+            widgets_para_exibir.append(HBox([chave_widget, valor_widget]))
+
+        # Exibe todos os widgets de uma vez usando VBox para um layout vertical
+        display(VBox(widgets_para_exibir))
 
     def manipulador_evento_dropdown(self, change):
         # Lida com mudanças no valor selecionado do dropdown, reiniciando a exibição
@@ -62,7 +75,7 @@ class FormularioFurnas:
         if change.new == 'Usar Dados Personalizados':
             self.exibir_formulario_dados_personalizados()
         else:
-            display(self.sources)
+            self.exibir_fontes()
             self.consts = Constants()
 
     def formulario_namespace(self, namespace):
