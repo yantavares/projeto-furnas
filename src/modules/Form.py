@@ -139,10 +139,7 @@ class FormularioFurnas:
             # Criação de DataFrame e exportação para CSV
             df = pd.DataFrame([valores_dict])
 
-            if not os.path.exists('./content'):
-                os.makedirs('./content')
-
-            df.to_csv('./content/dados.csv', index=False)
+            df.to_csv('dados.csv', index=False)
 
             print("CSV exportado com sucesso!")
         except Exception as e:
@@ -157,14 +154,14 @@ class FormularioFurnas:
         # Manipulador de evento para o botão de carregar CSV
         clear_output(wait=False)
         try:
-            df = pd.read_csv('./content/dados.csv')
+            df = pd.read_csv('dados.csv')
             valores = SimpleNamespace(**df.to_dict(orient='records')[0])
             self.consts.set_personalized_values(valores)
             msg1 = "CSV carregado com sucesso!"
             msg2 = "Não esqueça de clicar em 'Enviar' para atualizar os valores"
         except FileNotFoundError:
             msg1 = "Arquivo não encontrado!"
-            msg2 = "Por favor, exporte um arquivo CSV ou adicione-o na pasta 'content' e tente novamente"
+            msg2 = "Por favor, exporte um arquivo CSV e tente novamente"
         except Exception as e:
             msg1 = "Erro ao carregar csv: verifique os dados inseridos!"
             msg2 = f"Erro: {e}"
