@@ -33,6 +33,11 @@ def criar_widget(description, value, disabled=False, widget_style={'description_
 
 
 def criar_header(t):
+    """
+    Cria e retorna um widget HTML para exibir um cabeçalho.
+
+    :param t: Texto do cabeçalho.
+    """
     return HTML(f"<h2>{t}</h2>")
 
 
