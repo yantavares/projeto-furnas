@@ -1,7 +1,7 @@
 # Importações necessárias para definir os widgets e manipular namespaces
 from types import SimpleNamespace
-from ipywidgets import FloatText, Layout
-
+from ipywidgets import FloatText, Layout, HTML
+from collections import OrderedDict
 from ValidData import ValidData
 
 
@@ -30,6 +30,10 @@ def criar_widget(description, value, disabled=False, widget_style={'description_
                      disabled=disabled,
                      style=widget_style,
                      layout=widget_layout)
+
+
+def criar_header(t):
+    return HTML(f"<h2>{t}</h2>")
 
 
 def calcular_combustivel(Turbine_Power, efficiency):
@@ -72,7 +76,17 @@ def convert_to_widget(a):
     a_dict = vars(a)
     try:
         # Cria um dicionário de widgets usando criar_widget para cada valor
-        b_dict = {k: criar_widget(VALID[k], v) for k, v in a_dict.items()}
+        count = 0
+        headers = ValidData.get_header_positions()
+        b_dict = {}
+        for k, v in a_dict.items():
+            if count in headers:
+                b_dict["header" +
+                       str(count)] = criar_header(VALID["header" + str(count)])
+            if k in VALID.keys():
+                b_dict[k] = criar_widget(VALID[k], v)
+            count += 1
+
         b = SimpleNamespace(**b_dict)
         return b
     except:

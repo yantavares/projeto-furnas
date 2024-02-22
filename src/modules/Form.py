@@ -87,9 +87,18 @@ class FormularioFurnas:
 
         while True:
             try:
-                _, element1 = next(dict_iterator)
+                key1, element1 = next(dict_iterator)
+
+                if "header" in key1.lower():
+                    rows.append([element1])
+                    continue
                 try:
-                    _, element2 = next(dict_iterator)
+                    key2, element2 = next(dict_iterator)
+                    if "header" in key2.lower():
+                        rows.append([element1])
+                        rows.append([element2])
+                        continue
+
                     rows.append([element1, element2])
                 except StopIteration:
                     last_element = element1  # Salva o último elemento se não houver par para ele
