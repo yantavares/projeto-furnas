@@ -15,7 +15,7 @@ class ValidData:
         "NG_price": "Preço do gás natural",
         "time_to_pay_turbine": "Tempo para pagar a turbina (meses)",
 
-        "header6": "Dados CCGT",
+        "header6": "CCGT",
 
         "CCGT_power": "Potência da CCGT (MW)",
         "CCGT_capital_cost": "Custo de capital da CCGT (US$/kW)",
@@ -28,7 +28,7 @@ class ValidData:
         "CCGT_warm_start_cost": "Custo de partida morna da CCGT (US$/MW)",
         "CCGT_cold_start_cost": "Custo de partida fria da CCGT (US$/MW)",
 
-        "header16": "Dados AeroGT",
+        "header16": "AeroGT",
 
         "Aero_power": "Potência da Aero GT (MW)",
         "Aero_total_cost": "Custo total da Aero GT (US$/kW)",
@@ -41,7 +41,7 @@ class ValidData:
         "Aero_warm_start_cost": "Custo de partida morna da Aero GT (US$/MW)",
         "Aero_cold_start_cost": "Custo de partida fria da Aero GT (US$/MW)",
 
-        "header26": "Dados Heavy Duty",
+        "header26": "Heavy Duty",
 
         "Heavy_Duty_power": "Potência da Heavy Duty (MW)",
         "Heavy_Duty_total_cost": "Custo total da Heavy Duty (US$/kW)",
