@@ -132,7 +132,13 @@ class FormularioFurnas:
 
     def recuperar_valores(self):
         # Retorna os valores atualizados do formulário
-        return self.consts.get_values()
+        values = self.consts.get_values()
+        values_dict = vars(values)
+
+        filtered_values = {
+            k: v for k, v in values_dict.items() if "header" not in k.lower()}
+
+        return filtered_values
 
     def manipulador_evento_baixar_csv(self, _):
         # Manipulador de evento para o botão de exportar para CSV
