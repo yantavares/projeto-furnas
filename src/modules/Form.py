@@ -138,7 +138,7 @@ class FormularioFurnas:
         filtered_values = {
             k: v for k, v in values_dict.items() if "header" not in k.lower()}
 
-        return filtered_values
+        return SimpleNamespace(**filtered_values)
 
     def manipulador_evento_baixar_csv(self, _):
         # Manipulador de evento para o botão de exportar para CSV
