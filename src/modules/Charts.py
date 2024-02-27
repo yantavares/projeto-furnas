@@ -100,6 +100,15 @@ class GeradorGraficoFurnas:
                 # Caminho completo do arquivo
                 arquivo_completo = f'imagens/{nome_arquivo}.pdf'
 
+                # Gráfico temporário para corrigir bug
+                figTemp = go.scatter(x=[0, 1, 2, 3, 4], y=[0, 1, 4, 9, 16])
+                figTemp.show()
+                figTemp.write_image(arquivo_completo)
+
+                # Ajusta o tamanho da fonte para 10
+                fig.update_layout(legend=dict(
+                    font=dict(size=10), title_font=dict(size=14)))
+
                 # Exporta a figura como PDF
                 fig.write_image(arquivo_completo)
 
