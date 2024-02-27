@@ -110,14 +110,21 @@ class GeradorGraficoFurnas:
 
         return ao_clicar_no_botao
 
-    def download_file(self, file_path):
+    def download_file(self, file_path, isColab=True):
         """
         Inicia o download de um arquivo no Jupyter Notebook.
 
         :param file_path: Caminho do arquivo a ser baixado.
         """
-        from google.colab import files
-        files.download(file_path)
+        if isColab:
+            try:
+                from google.colab import files
+                files.download(file_path)
+            except:
+                print("Ocorreu um erro ao baixar o arquivo PDF...")
+        else:
+            from IPython.display import FileLink
+            display(FileLink(file_path))
 
 
 if __name__ == "__main__":
