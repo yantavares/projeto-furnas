@@ -116,8 +116,8 @@ class GeradorGraficoFurnas:
 
         :param file_path: Caminho do arquivo a ser baixado.
         """
-        from IPython.display import FileLink
-        display(FileLink(file_path))
+        from google.colab import files
+        files.download(file_path)
 
 
 if __name__ == "__main__":
