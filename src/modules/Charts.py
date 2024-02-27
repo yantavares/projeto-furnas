@@ -106,8 +106,7 @@ class GeradorGraficoFurnas:
                 figTemp.write_image(arquivo_completo)
 
                 # Ajusta o tamanho da fonte para 10
-                fig.update_layout(legend=dict(
-                    font=dict(size=10), title_font=dict(size=14)))
+                fig.update_layout(showLegend=False, title_font=dict(size=12))
 
                 # Exporta a figura como PDF
                 fig.write_image(arquivo_completo)
