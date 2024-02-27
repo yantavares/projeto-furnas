@@ -103,7 +103,7 @@ class GeradorGraficoFurnas:
                 # Gráfico temporário para corrigir bug
                 figTemp = go.Figure(go.Scatter(
                     x=[0, 1, 2, 3, 4], y=[0, 1, 4, 9, 16]))
-                figTemp.show()
+
                 figTemp.write_image(arquivo_completo)
 
                 # Ajusta o tamanho da fonte para 10 e remove a legenda
