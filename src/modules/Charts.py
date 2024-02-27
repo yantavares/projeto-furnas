@@ -101,12 +101,13 @@ class GeradorGraficoFurnas:
                 arquivo_completo = f'imagens/{nome_arquivo}.pdf'
 
                 # Gráfico temporário para corrigir bug
-                figTemp = go.scatter(x=[0, 1, 2, 3, 4], y=[0, 1, 4, 9, 16])
+                figTemp = go.Figure(go.Scatter(
+                    x=[0, 1, 2, 3, 4], y=[0, 1, 4, 9, 16]))
                 figTemp.show()
                 figTemp.write_image(arquivo_completo)
 
-                # Ajusta o tamanho da fonte para 10
-                fig.update_layout(showLegend=False, title_font=dict(size=12))
+                # Ajusta o tamanho da fonte para 10 e remove a legenda
+                fig.update_layout(showlegend=False, title_font=dict(size=12))
 
                 # Exporta a figura como PDF
                 fig.write_image(arquivo_completo)
