@@ -38,7 +38,7 @@ def criar_header(t):
 
     :param t: Texto do cabeçalho.
     """
-    return HTML(f"<h2>{t}</h2>")
+    return HTML(f"<h2 style='color: #D5B60A; margin-left: 20%; width: 20rem;'>{t}</h2>")
 
 
 def calcular_combustivel(Turbine_Power, efficiency):
