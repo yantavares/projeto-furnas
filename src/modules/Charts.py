@@ -156,6 +156,6 @@ if __name__ == "__main__":
     x = [1, 2, 3, 4]
     gerador.grafico_interativo_multiplas_linhas(
         x, [[1, 2, 3, 4], [20, 21, 22, 23], [20, 21, 22, 23], [20, 21, 22, 23]
-            ], "Eixo X", "Eixo Y"
+            ], "Eixo X", "Eixo Y",
     )
     gerador.botao_exportar_pdf()
