@@ -2,6 +2,7 @@ import os
 from IPython.display import display
 from ipywidgets import Button
 import plotly.graph_objects as go
+import time
 
 
 class GeradorGraficoFurnas:
@@ -105,6 +106,7 @@ class GeradorGraficoFurnas:
                     x=[0, 1, 2, 3, 4], y=[0, 1, 4, 9, 16]))
 
                 figTemp.write_image(arquivo_completo)
+                time.sleep(2)
 
                 fig.update_layout(
                     title_font=dict(size=16),
@@ -114,7 +116,7 @@ class GeradorGraficoFurnas:
                     legend=dict(
                         orientation="h",
                         x=0.5,
-                        y=1,
+                        y=1.1,
                         xanchor='center',
                         yanchor='bottom',
                     )
