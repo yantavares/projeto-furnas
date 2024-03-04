@@ -104,8 +104,8 @@ class GeradorGraficoFurnas:
                 # Gráfico temporário para corrigir bug
                 figTemp = go.Figure(go.Scatter(
                     x=[0, 1, 2, 3, 4], y=[0, 1, 4, 9, 16]))
-
                 figTemp.write_image(arquivo_completo)
+                # Aguarda 2 segundos para garantir que o bug suma
                 time.sleep(2)
 
                 fig.update_layout(
