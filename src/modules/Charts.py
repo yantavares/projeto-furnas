@@ -48,7 +48,8 @@ class GeradorGraficoFurnas:
         """
         fig = go.Figure()
         for i in range(len(y)):
-            legenda = nome_legenda[i] if i < len(nome_legenda) else ""
+            legenda = nome_legenda[i] if i < len(
+                nome_legenda) else f"Série {i+1}"
             fig.add_trace(go.Scatter(x=x, y=y[i], mode='lines', name=legenda))
 
         fig.update_layout(
@@ -153,7 +154,8 @@ if __name__ == "__main__":
     # Exemplo de uso da classe
     gerador = GeradorGraficoFurnas("meu_grafico")
     x = [1, 2, 3, 4]
-    y = [10, 11, 12, 13]
-    gerador.grafico_interativo_linha(
-        x, y, "Eixo X", "Eixo Y", "Título do Gráfico", "Legenda da Linha")
+    gerador.grafico_interativo_multiplas_linhas(
+        x, [[1, 2, 3, 4], [20, 21, 22, 23], [20, 21, 22, 23], [20, 21, 22, 23]
+            ], "Eixo X", "Eixo Y"
+    )
     gerador.botao_exportar_pdf()
