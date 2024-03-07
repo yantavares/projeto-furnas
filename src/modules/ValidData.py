@@ -60,7 +60,7 @@ class ValidData:
 
         # taxa de inflação em dólares corrigida em dólares https://www.bls.gov/data/inflation_calculator.htm
         inflation_multiplier_2012=1.35,
-        inflation_multiplier_2019=1.19,
+        inflation_multiplier_2019=1.22,
         # Transformação de BTU/ft^3 (BTU sobre pé cubico) para MJ/m^3 (Megajoule sobre metro cúbico)
         # Encontrado em: https://www.eia.gov/energyexplained/units-and-calculators/energy-conversion-calculators.php
         cubic_m_to_ft=35.3,
