@@ -140,51 +140,94 @@ class FormularioFurnas:
 
         return SimpleNamespace(**filtered_values)
 
-    def manipulador_evento_baixar_csv(self, _):
+    def manipulador_evento_baixar_csv(self, _, isColab=True):
         # Manipulador de evento para o botão de exportar para CSV
-        try:
-            valores = self.recuperar_valores()
 
-            # Conversão de SimpleNamespace para dicionário, se necessário
-            if isinstance(valores, SimpleNamespace):
-                valores_dict = vars(valores)
-            else:
-                valores_dict = valores
+        if isColab:
+            try:
+                from google.colab import files
+                valores = self.recuperar_valores()
 
-            # Criação de DataFrame e exportação para CSV
-            df = pd.DataFrame([valores_dict])
+                # Conversão de SimpleNamespace para dicionário, se necessário
+                if isinstance(valores, SimpleNamespace):
+                    valores_dict = vars(valores)
+                else:
+                    valores_dict = valores
 
-            df.to_csv('dados.csv', index=False)
+                # Criação de DataFrame e exportação para CSV
+                df = pd.DataFrame([valores_dict])
 
-            print("CSV exportado com sucesso!")
-        except Exception as e:
-            print(f"Erro ao exportar csv: {e}")
+                df.to_csv('dados.csv', index=False)
+
+                files.download('dados.csv')
+                print("CSV exportado com sucesso!")
+            except Exception as e:
+                print(f"Erro ao exportar csv: {e}")
+
+        else:
+            try:
+                valores = self.recuperar_valores()
+
+                # Conversão de SimpleNamespace para dicionário, se necessário
+                if isinstance(valores, SimpleNamespace):
+                    valores_dict = vars(valores)
+                else:
+                    valores_dict = valores
+
+                # Criação de DataFrame e exportação para CSV
+                df = pd.DataFrame([valores_dict])
+
+                df.to_csv('dados.csv', index=False)
+
+                print("CSV exportado com sucesso!")
+            except Exception as e:
+                print(f"Erro ao exportar csv: {e}")
 
     def exibir_formulario_dados_personalizados_e_dropdown(self):
         # Exibe o dropdown e o formulário de dados personalizados
         display(self.dropdown)
         self.exibir_formulario_dados_personalizados()
 
-    def manipulador_evento_carregar_csv(self, _):
+    def manipulador_evento_carregar_csv(self, _, isColab=True):
         # Manipulador de evento para o botão de carregar CSV
         clear_output(wait=False)
-        try:
-            df = pd.read_csv('dados.csv')
-            valores = SimpleNamespace(**df.to_dict(orient='records')[0])
-            self.consts.set_personalized_values(valores)
-            msg1 = "CSV carregado com sucesso!"
-            msg2 = "Não esqueça de clicar em 'Enviar' para atualizar os valores"
-        except FileNotFoundError:
-            msg1 = "Arquivo não encontrado!"
-            msg2 = "Por favor, exporte um arquivo CSV e tente novamente"
-        except Exception as e:
-            msg1 = "Erro ao carregar csv: verifique os dados inseridos!"
-            msg2 = f"Erro: {e}"
-        finally:
-            # Após o carregamento (bem-sucedido ou não), atualize a interface do usuário
-            self.exibir_formulario_dados_personalizados_e_dropdown()
-            print(msg1)
-            print(msg2)
+        if isColab:
+            from google.colab import files
+            uploaded = files.upload()
+            for fn in uploaded.keys():
+                try:
+                    df = pd.read_csv(fn)
+                    valores = SimpleNamespace(
+                        **df.to_dict(orient='records')[0])
+                    self.consts.set_personalized_values(valores)
+                    msg1 = "CSV carregado com sucesso!"
+                    msg2 = "Não esqueça de clicar em 'Enviar' para atualizar os valores"
+                except Exception as e:
+                    msg1 = "Erro ao carregar csv: verifique os dados inseridos!"
+                    msg2 = f"Erro: {e}"
+                finally:
+                    # Após o carregamento (bem-sucedido ou não), atualize a interface do usuário
+                    self.exibir_formulario_dados_personalizados_e_dropdown()
+                    print(msg1)
+                    print(msg2)
+        else:
+            try:
+                df = pd.read_csv('dados.csv')
+                valores = SimpleNamespace(**df.to_dict(orient='records')[0])
+                self.consts.set_personalized_values(valores)
+                msg1 = "CSV carregado com sucesso!"
+                msg2 = "Não esqueça de clicar em 'Enviar' para atualizar os valores"
+            except FileNotFoundError:
+                msg1 = "Arquivo não encontrado!"
+                msg2 = "Por favor, exporte um arquivo CSV e tente novamente"
+            except Exception as e:
+                msg1 = "Erro ao carregar csv: verifique os dados inseridos!"
+                msg2 = f"Erro: {e}"
+            finally:
+                # Após o carregamento (bem-sucedido ou não), atualize a interface do usuário
+                self.exibir_formulario_dados_personalizados_e_dropdown()
+                print(msg1)
+                print(msg2)
 
 
 # Execução principal do script, caso este arquivo seja o ponto de entrada
