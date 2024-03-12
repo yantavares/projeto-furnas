@@ -3,7 +3,6 @@ from IPython.display import display, clear_output
 from ipywidgets import Button, Dropdown, VBox, HBox, Layout, HTML
 import pandas as pd
 from types import SimpleNamespace
-import os
 
 from ConstHandler import Constants
 
@@ -126,7 +125,7 @@ class FormularioFurnas:
         # Manipulador de evento para o botão de enviar, atualizando os valores
         try:
             self.atualizar_valores()
-            print("Valores atualizados com sucesso!")
+            display(HTML(value="<h3>Valores atualizados com sucesso!</h3>"))
         except Exception as e:
             print(f"Erro ao atualizar valores: {e}")
 
