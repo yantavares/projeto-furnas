@@ -35,9 +35,9 @@ class FormularioFurnas:
         self.botao_enviar = Button(
             description='Enviar', layout=Layout(width='auto', margin='10px 0'))
         self.botao_exportar_csv = Button(
-            description='Exportar CSV', layout=Layout(margin='10px 0'))
+            description='Exportar CSV', layout=Layout(margin='10px 100px 10px 0'))
         self.botao_carregar_csv = Button(
-            description='Carregar CSV', layout=Layout(margin='10px 0'))
+            description='Carregar CSV', layout=Layout(margin='10px'))
 
     def configurar_observadores(self):
         # Configuração dos observadores de eventos para os widgets
