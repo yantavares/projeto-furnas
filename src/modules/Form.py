@@ -208,6 +208,7 @@ class FormularioFurnas:
                     msg2 = f"Erro: {e}"
                 finally:
                     # Após o carregamento (bem-sucedido ou não), atualize a interface do usuário
+                    clear_output(wait=True)
                     self.exibir_formulario_dados_personalizados_e_dropdown()
                     print(msg1)
                     print(msg2)
