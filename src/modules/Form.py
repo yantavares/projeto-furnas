@@ -193,6 +193,7 @@ class FormularioFurnas:
         clear_output(wait=False)
         if isColab:
             from google.colab import files
+            self.exibir_formulario_dados_personalizados_e_dropdown()
             uploaded = files.upload()
             for fn in uploaded.keys():
                 try:
