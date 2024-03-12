@@ -190,7 +190,6 @@ class FormularioFurnas:
 
     def manipulador_evento_carregar_csv(self, _, isColab=True):
         # Manipulador de evento para o botão de carregar CSV
-        clear_output(wait=False)
         if isColab:
             from google.colab import files
             clear_output(wait=True)
@@ -227,6 +226,7 @@ class FormularioFurnas:
                 msg2 = f"Erro: {e}"
             finally:
                 # Após o carregamento (bem-sucedido ou não), atualize a interface do usuário
+                clear_output(wait=False)
                 self.exibir_formulario_dados_personalizados_e_dropdown()
                 print(msg1)
                 print(msg2)
