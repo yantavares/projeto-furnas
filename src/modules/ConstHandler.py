@@ -1,15 +1,7 @@
 # Importações necessárias para definir os widgets e manipular namespaces
 from types import SimpleNamespace
 from ipywidgets import FloatText, Layout, HTML
-from collections import OrderedDict
 from ValidData import ValidData
-
-
-# Obtenção dos dados válidos a partir da classe ValidData
-VALID = ValidData.get_valid_data()
-
-# Obtenção dos dados iniciais a partir da classe ValidData
-INITIAL = ValidData.get_initial_values()
 
 
 def criar_widget(description, value, disabled=False, widget_style={'description_width': '325px'}, widget_layout=Layout(width='auto', margin='5px')):
@@ -70,35 +62,6 @@ def map_simple_namespace(a, f):
     return b
 
 
-def convert_to_widget(a):
-    """
-    Converte um SimpleNamespace em um conjunto de widgets, baseando-se nas chaves válidas.
-
-    :param a: SimpleNamespace contendo os valores a serem convertidos em widgets.
-    :return: SimpleNamespace contendo os widgets.
-    """
-    # Converte o SimpleNamespace em dicionário
-    a_dict = vars(a)
-    try:
-        # Cria um dicionário de widgets usando criar_widget para cada valor
-        count = 0
-        headers = ValidData.get_header_positions()
-        b_dict = {}
-        for k, v in a_dict.items():
-            if count in headers:
-                b_dict["header" +
-                       str(count)] = criar_header(VALID["header" + str(count)])
-            if k in VALID.keys():
-                b_dict[k] = criar_widget(VALID[k], v)
-            count += 1
-
-        b = SimpleNamespace(**b_dict)
-        return b
-    except:
-        print("Valor inválido de variável. Verifique os dados inseridos!")
-        return a
-
-
 class Constants:
     """
     Classe para gerenciar constantes e valores do formulário, incluindo a criação de widgets correspondentes.
@@ -106,9 +69,40 @@ class Constants:
     As fontes para os dados incluem publicações da EIA, GE, ETN, e NREL.
     """
 
-    def __init__(self):
+    def __init__(self, mode):
+        self.VALID = ValidData.get_valid_data(mode)
+        self.INITIAL = ValidData.get_initial_values(mode)
+
+        def convert_to_widget(a):
+            """
+            Converte um SimpleNamespace em um conjunto de widgets, baseando-se nas chaves válidas.
+
+            :param a: SimpleNamespace contendo os valores a serem convertidos em widgets.
+            :return: SimpleNamespace contendo os widgets.
+            """
+            # Converte o SimpleNamespace em dicionário
+            a_dict = vars(a)
+            try:
+                # Cria um dicionário de widgets usando criar_widget para cada valor
+                count = 0
+                headers = ValidData.get_header_positions(mode)
+                b_dict = {}
+                for k, v in a_dict.items():
+                    if count in headers:
+                        b_dict["header" +
+                               str(count)] = criar_header(self.VALID["header" + str(count)])
+                    if k in self.VALID.keys():
+                        b_dict[k] = criar_widget(self.VALID[k], v)
+                    count += 1
+
+                b = SimpleNamespace(**b_dict)
+                return b
+            except Exception as e:
+                print("Valor inválido de variável. Verifique os dados inseridos!", e)
+                return a
+
         # Inicialização dos valores padrão
-        self.values = ValidData.get_initial_values()
+        self.values = ValidData.get_initial_values(mode)
 
         # Conversão dos valores para widgets
         self.widget_constants = convert_to_widget(self.values)
@@ -128,16 +122,18 @@ class Constants:
         self.values = novo_namespace
 
     def set_personalized_values(self, values):
+        self.VALID = ValidData
+
         """
         Define valores personalizados, garantindo que as chaves sejam válidas.
         """
         try:
             for key, _ in vars(values).items():
-                if key not in VALID.keys():
+                if key not in self.VALID.keys():
                     raise ValueError("Chave inválida!", key)
 
             values = self.patch_values(values)
-            self.widget_constants = convert_to_widget(values)
+            self.widget_constants = self.convert_to_widget(values)
         except Exception as e:
             raise ValueError("Erro ao atualizar valores personalizados: ", e)
 
@@ -147,10 +143,12 @@ class Constants:
         """
         return self.values
 
-    def patch_values(self, new_values: SimpleNamespace, initial_values=INITIAL):
+    def patch_values(self, new_values: SimpleNamespace, initial_values=None):
         """
         Adiciona campos faltantes com valores padrão e atualiza os valores das constantes com base nos valores inseridos.
         """
+        if initial_values == None:
+            initial_values = self.INITIAL
         new_values_pacthed = SimpleNamespace()
         try:
             for key, value in vars(initial_values).items():

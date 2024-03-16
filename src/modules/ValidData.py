@@ -115,26 +115,123 @@ class ValidData:
         # - https://www.nrel.gov/docs/fy12osti/55433.pdf
     )
 
-    @staticmethod
-    def is_valid(data):
-        return data in ValidData.VALID
+    # This means: After index x put header
+    header_positions_batteries = [0, 3, 6, 9, 12, 15, 18]
+    VALID_BATTERIES = {
+        "header0": "Bateria: Chumbo-Ácido",
+
+        "lead_acid_kw": 1976,
+        "lead_acid_kwh": 494.5,
+        "lead_acid_lifespan": 3,
+
+        "header3": "Bateria: Lítio-Íon",
+
+        "li_ion_kw": 1946,
+        "li_ion_kwh": 487,
+        "li_ion_lifespan": 10,
+
+        "header6": "Bateria: Sódio-Enxofre",
+
+        "sodium_sulfur_kw": 3782,
+        "sodium_sulfur_kwh": 946,
+        "sodium_sulfur_lifespan": 13.5,
+
+        "header9": "Bateria: Fluxo de oxidação",
+
+        "redox_flow_kw": 3984,
+        "redox_flow_kwh": 996.5,
+        "redox_flow_lifespan": 15,
+
+        "header12": "Bateria: Sódio-Metal",
+
+        "sodium_metal_halide_kw": 3952,
+        "sodium_metal_halide_kwh": 988.5,
+        "sodium_metal_halide_lifespan": 12.5,
+
+        "header15": "Bateria: Zinco-Catodo Híbrido",
+
+        "zinc_hybrid_cathode_kw": 2200,
+        "zinc_hybrid_cathode_kwh": 550.5,
+        "zinc_hybrid_cathode_lifespan": 10,
+
+        "header18": "Ultracapacitor",
+
+        "ultracapacitor_kw": 930,
+        "ultracapacitor_kw": 74480,
+        "ultracapacitor_lifespan": 16
+
+    }
+
+    INITIAL_VALUES_BATTERIES = SimpleNamespace(
+        # Data from DOE
+        lead_acid_kw=1976,
+        lead_acid_kwh=494.5,
+        lead_acid_lifespan=3,
+
+        li_ion_kw=1946,
+        li_ion_kwh=487,
+        li_ion_lifespan=10,
+
+        sodium_sulfur_kw=3782,
+        sodium_sulfur_kwh=946,
+        sodium_sulfur_lifespan=13.5,
+
+        redox_flow_kw=3984,
+        redox_flow_kwh=996.5,
+        redox_flow_lifespan=15,
+
+        sodium_metal_halide_kw=3952,
+        sodium_metal_halide_kwh=988.5,
+        sodium_metal_halide_lifespan=12.5,
+
+        zinc_hybrid_cathode_kw=2200,
+        zinc_hybrid_cathode_kwh=550.5,
+        zinc_hybrid_cathode_lifespan=10,
+
+        ultracapacitor_kw=930,
+        ultracapacitor_kwh=74480,
+        ultracapacitor_lifespan=16)
 
     @staticmethod
-    def get_valid_data():
-        return ValidData.VALID
+    def is_valid(data, mode):
+        if mode == "turbines":
+            return data in ValidData.VALID
+        elif mode == "batteries":
+            return data in ValidData.VALID_BATTERIES
 
     @staticmethod
-    def get_valid_data_by_key(key):
-        return ValidData.VALID[key]
+    def get_valid_data(mode):
+        if mode == "turbines":
+            return ValidData.VALID
+        elif mode == "batteries":
+            return ValidData.VALID_BATTERIES
 
     @staticmethod
-    def get_valid_data_by_value(value):
-        return list(ValidData.VALID.keys())[list(ValidData.VALID.values()).index(value)]
+    def get_valid_data_by_key(key, mode):
+        if mode == "turbines":
+            return ValidData.VALID[key]
+        elif mode == "batteries":
+            return ValidData.VALID_BATTERIES[key]
 
     @staticmethod
-    def get_initial_values():
-        return ValidData.INITIAL_VALUES
+    def get_valid_data_by_value(value, mode):
+        if mode == "turbines":
+            return list(ValidData.VALID.keys())[list(ValidData.VALID.values()).index(value)]
+        elif mode == "batteries":
+            return list(ValidData.VALID_BATTERIES.keys())[list(ValidData.VALID_BATTERIES.values()).index(value)]
 
     @staticmethod
-    def get_header_positions():
-        return ValidData.header_positions
+    def get_initial_values(mode):
+        if mode == "turbines":
+            return ValidData.INITIAL_VALUES
+        elif mode == "batteries":
+            return ValidData.INITIAL_VALUES_BATTERIES
+        else:
+            raise ValueError("Modo inválido!")
+
+    @staticmethod
+    def get_header_positions(mode):
+        if mode == "turbines":
+            return ValidData.header_positions
+        elif mode == "batteries":
+            return ValidData.header_positions_batteries

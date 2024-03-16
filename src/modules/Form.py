@@ -9,7 +9,7 @@ from ConstHandler import Constants
 
 class FormularioFurnas:
 
-    def __init__(self):
+    def __init__(self, mode='turbines'):
         # Inicialização das constantes e dos widgets do formulário
         self.sources = {
             "Multiplicadores de inflação": "https://www.bls.gov/data/inflation_calculator.htm",
@@ -20,7 +20,7 @@ class FormularioFurnas:
             "Dados sobre Heavy Duty": "https://www.ge.com/gas-power/products/gas-turbines/7f",
             "Dados sobre custos de partida": "https://www.nrel.gov/docs/fy12osti/55433.pdf",
         }
-        self.consts = Constants()
+        self.consts = Constants(mode)
         self.inicializar_widgets()
         self.configurar_observadores()
 
