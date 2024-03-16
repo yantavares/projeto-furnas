@@ -11,15 +11,24 @@ class FormularioFurnas:
 
     def __init__(self, mode='turbines'):
         # Inicialização das constantes e dos widgets do formulário
-        self.sources = {
-            "Multiplicadores de inflação": "https://www.bls.gov/data/inflation_calculator.htm",
-            "Conversão de pés cúbicos para metros cúbicos": "https://www.eia.gov/energyexplained/units-and-calculators/energy-conversion-calculators.php",
-            "Preço de gás natural": "https://www.eia.gov/dnav/ng/hist/n3035us3A.htm",
-            "Dados sobre CCGT": "https://www.ge.com/gas-power/products/gas-turbines/7ha",
-            "Dados sobre AeroGT": "https://www.ge.com/gas-power/products/gas-turbines/lm6000",
-            "Dados sobre Heavy Duty": "https://www.ge.com/gas-power/products/gas-turbines/7f",
-            "Dados sobre custos de partida": "https://www.nrel.gov/docs/fy12osti/55433.pdf",
-        }
+        sources = {}
+        if mode == "turbines":
+            sources = {
+                "Multiplicadores de inflação": "https://www.bls.gov/data/inflation_calculator.htm",
+                "Conversão de pés cúbicos para metros cúbicos": "https://www.eia.gov/energyexplained/units-and-calculators/energy-conversion-calculators.php",
+                "Preço de gás natural": "https://www.eia.gov/dnav/ng/hist/n3035us3A.htm",
+                "Dados sobre CCGT": "https://www.ge.com/gas-power/products/gas-turbines/7ha",
+                "Dados sobre AeroGT": "https://www.ge.com/gas-power/products/gas-turbines/lm6000",
+                "Dados sobre Heavy Duty": "https://www.ge.com/gas-power/products/gas-turbines/7f",
+                "Dados sobre custos de partida": "https://www.nrel.gov/docs/fy12osti/55433.pdf",
+            }
+        elif mode == "batteries":
+            sources = {
+                "Custos das baterias": "https://www.energy.gov/",
+                "Custos de ultra-capacitores": "https://ebay.com/",
+            }
+
+        self.sources = sources
         self.consts = Constants(mode)
         self.inicializar_widgets()
         self.configurar_observadores()

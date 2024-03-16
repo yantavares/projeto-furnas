@@ -117,49 +117,49 @@ class ValidData:
 
     # This means: After index x put header
     header_positions_batteries = [0, 3, 6, 9, 12, 15, 18]
+
     VALID_BATTERIES = {
         "header0": "Bateria: Chumbo-Ácido",
 
-        "lead_acid_kw": 1976,
-        "lead_acid_kwh": 494.5,
-        "lead_acid_lifespan": 3,
+        "lead_acid_kw": "Custo de projeto por kW",
+        "lead_acid_kwh": "Custo de projeto por kWh",
+        "lead_acid_lifespan": "Vida útil (anos)",
 
         "header3": "Bateria: Lítio-Íon",
 
-        "li_ion_kw": 1946,
-        "li_ion_kwh": 487,
-        "li_ion_lifespan": 10,
+        "li_ion_kw": "Custo de projeto por kW",
+        "li_ion_kwh": "Custo de projeto por kWh",
+        "li_ion_lifespan": "Vida útil (anos)",
 
         "header6": "Bateria: Sódio-Enxofre",
 
-        "sodium_sulfur_kw": 3782,
-        "sodium_sulfur_kwh": 946,
-        "sodium_sulfur_lifespan": 13.5,
+        "sodium_sulfur_kw": "Custo de projeto por kW",
+        "sodium_sulfur_kwh": "Custo de projeto por kWh",
+        "sodium_sulfur_lifespan": "Vida útil (anos)",
 
         "header9": "Bateria: Fluxo de oxidação",
 
-        "redox_flow_kw": 3984,
-        "redox_flow_kwh": 996.5,
-        "redox_flow_lifespan": 15,
+        "redox_flow_kw": "Custo de projeto por kW",
+        "redox_flow_kwh": "Custo de projeto por kWh",
+        "redox_flow_lifespan": "Vida útil (anos)",
 
         "header12": "Bateria: Sódio-Metal",
 
-        "sodium_metal_halide_kw": 3952,
-        "sodium_metal_halide_kwh": 988.5,
-        "sodium_metal_halide_lifespan": 12.5,
+        "sodium_metal_halide_kw": "Custo de projeto por kW",
+        "sodium_metal_halide_kwh": "Custo de projeto por kWh",
+        "sodium_metal_halide_lifespan": "Vida útil (anos)",
 
         "header15": "Bateria: Zinco-Catodo Híbrido",
 
-        "zinc_hybrid_cathode_kw": 2200,
-        "zinc_hybrid_cathode_kwh": 550.5,
-        "zinc_hybrid_cathode_lifespan": 10,
+        "zinc_hybrid_cathode_kw": "Custo de projeto por kW",
+        "zinc_hybrid_cathode_kwh": "Custo de projeto por kWh",
+        "zinc_hybrid_cathode_lifespan": "Vida útil (anos)",
 
         "header18": "Ultracapacitor",
 
-        "ultracapacitor_kw": 930,
-        "ultracapacitor_kw": 74480,
-        "ultracapacitor_lifespan": 16
-
+        "ultracapacitor_kw": "Custo de projeto por kW",
+        "ultracapacitor_kwh": "Custo de projeto por kWh",
+        "ultracapacitor_lifespan": "Vida útil (anos)",
     }
 
     INITIAL_VALUES_BATTERIES = SimpleNamespace(
@@ -190,7 +190,8 @@ class ValidData:
 
         ultracapacitor_kw=930,
         ultracapacitor_kwh=74480,
-        ultracapacitor_lifespan=16)
+        ultracapacitor_lifespan=16
+    )
 
     @staticmethod
     def is_valid(data, mode):
@@ -198,6 +199,8 @@ class ValidData:
             return data in ValidData.VALID
         elif mode == "batteries":
             return data in ValidData.VALID_BATTERIES
+        else:
+            raise ValueError("Modo inválido!")
 
     @staticmethod
     def get_valid_data(mode):
@@ -205,6 +208,8 @@ class ValidData:
             return ValidData.VALID
         elif mode == "batteries":
             return ValidData.VALID_BATTERIES
+        else:
+            raise ValueError("Modo inválido!")
 
     @staticmethod
     def get_valid_data_by_key(key, mode):
@@ -212,6 +217,8 @@ class ValidData:
             return ValidData.VALID[key]
         elif mode == "batteries":
             return ValidData.VALID_BATTERIES[key]
+        else:
+            raise ValueError("Modo inválido!")
 
     @staticmethod
     def get_valid_data_by_value(value, mode):
@@ -219,6 +226,8 @@ class ValidData:
             return list(ValidData.VALID.keys())[list(ValidData.VALID.values()).index(value)]
         elif mode == "batteries":
             return list(ValidData.VALID_BATTERIES.keys())[list(ValidData.VALID_BATTERIES.values()).index(value)]
+        else:
+            raise ValueError("Modo inválido!")
 
     @staticmethod
     def get_initial_values(mode):
@@ -235,3 +244,5 @@ class ValidData:
             return ValidData.header_positions
         elif mode == "batteries":
             return ValidData.header_positions_batteries
+        else:
+            raise ValueError("Modo inválido!")

@@ -122,8 +122,6 @@ class Constants:
         self.values = novo_namespace
 
     def set_personalized_values(self, values):
-        self.VALID = ValidData
-
         """
         Define valores personalizados, garantindo que as chaves sejam válidas.
         """
@@ -147,8 +145,9 @@ class Constants:
         """
         Adiciona campos faltantes com valores padrão e atualiza os valores das constantes com base nos valores inseridos.
         """
-        if initial_values == None:
+        if initial_values is None:
             initial_values = self.INITIAL
+
         new_values_pacthed = SimpleNamespace()
         try:
             for key, value in vars(initial_values).items():
@@ -166,6 +165,6 @@ class Constants:
 
 # Bloco de execução principal para testar a classe Constants
 if __name__ == "__main__":
-    c = Constants()
+    c = Constants("batteries")
     c.set_values()
     print(c.get_values())
