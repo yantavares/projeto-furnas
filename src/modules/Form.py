@@ -86,7 +86,7 @@ class FormularioFurnas:
             self.exibir_formulario_dados_personalizados()
         else:
             self.exibir_fontes()
-            self.consts = Constants()
+            self.consts = Constants(self.mode)
 
     def formulario_namespace(self, namespace):
         # Método para criar um formulário baseado em SimpleNamespace, organizando os widgets em linhas
