@@ -27,9 +27,9 @@ class FormularioFurnas:
                 "Custos das baterias": "https://www.energy.gov/",
                 "Custos de ultra-capacitores": "https://ebay.com/",
             }
-
+        self.mode = mode
         self.sources = sources
-        self.consts = Constants(mode)
+        self.consts = Constants(self.mode)
         self.inicializar_widgets()
         self.configurar_observadores()
 
