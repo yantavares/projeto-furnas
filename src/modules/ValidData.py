@@ -121,45 +121,45 @@ class ValidData:
     VALID_BATTERIES = {
         "header0": "Bateria: Chumbo-Ácido",
 
-        "lead_acid_kw": "Custo de projeto por kW",
+        "lead_acid_kw": "Custo de projeto por kW (US$/kW)",
         "lead_acid_lifespan": "Vida útil (anos)",
-        "lead_acid_kwh": "Custo de projeto por kWh",
+        "lead_acid_kwh": "Custo de projeto por kWh (US$/kWh)",
 
         "header3": "Bateria: Lítio-Íon",
 
-        "li_ion_kw": "Custo de projeto por kW",
-        "li_ion_lifespan": "Vida útil (anos)",
-        "li_ion_kwh": "Custo de projeto por kWh",
+        "li_ion_kw": "Custo de projeto por kW (US$/kW)",
+        "li_ion_lifespan": "Vida útil (anos) ",
+        "li_ion_kwh": "Custo de projeto por kWh (US$/kWh)",
 
         "header6": "Bateria: Sódio-Enxofre",
 
-        "sodium_sulfur_kw": "Custo de projeto por kW",
+        "sodium_sulfur_kw": "Custo de projeto por kW (US$/kW)",
         "sodium_sulfur_lifespan": "Vida útil (anos)",
-        "sodium_sulfur_kwh": "Custo de projeto por kWh",
+        "sodium_sulfur_kwh": "Custo de projeto por kWh (US$/kWh)",
 
         "header9": "Bateria: Fluxo de oxidação",
 
-        "redox_flow_kw": "Custo de projeto por kW",
+        "redox_flow_kw": "Custo de projeto por kW (US$/kW)",
         "redox_flow_lifespan": "Vida útil (anos)",
-        "redox_flow_kwh": "Custo de projeto por kWh",
+        "redox_flow_kwh": "Custo de projeto por kWh (US$/kWh)",
 
         "header12": "Bateria: Sódio-Metal",
 
-        "sodium_metal_halide_kw": "Custo de projeto por kW",
+        "sodium_metal_halide_kw": "Custo de projeto por kW (US$/kW)",
         "sodium_metal_halide_lifespan": "Vida útil (anos)",
-        "sodium_metal_halide_kwh": "Custo de projeto por kWh",
+        "sodium_metal_halide_kwh": "Custo de projeto por kWh (US$/kWh)",
 
         "header15": "Bateria: Zinco-Catodo Híbrido",
 
-        "zinc_hybrid_cathode_kw": "Custo de projeto por kW",
+        "zinc_hybrid_cathode_kw": "Custo de projeto por kW (US$/kW)",
         "zinc_hybrid_cathode_lifespan": "Vida útil (anos)",
-        "zinc_hybrid_cathode_kwh": "Custo de projeto por kWh",
+        "zinc_hybrid_cathode_kwh": "Custo de projeto por kWh (US$/kWh)",
 
         "header18": "Ultracapacitor",
 
-        "ultracapacitor_kw": "Custo de projeto por kW",
+        "ultracapacitor_kw": "Custo de projeto por kW (US$/kW)",
         "ultracapacitor_lifespan": "Vida útil (anos)",
-        "ultracapacitor_kwh": "Custo de projeto por kWh",
+        "ultracapacitor_kwh": "Custo de projeto por kWh (US$/kWh)",
     }
 
     INITIAL_VALUES_BATTERIES = SimpleNamespace(
