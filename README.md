@@ -13,7 +13,7 @@ O principal objetivo deste repositório é servir como um centralizador para os 
 O repositório está organizado da seguinte forma:
 
 - `src/`: Códigos-fonte dos módulos personalizados.
-  - `content/`: Arquivos Excel que serão utilizados para a análise.
+  - `content/`: Arquivos Excel que serão utilizados para a análise. (Opcional)
   - `modules/`: Módulos personalizados desenvolvidos para o projeto.
 
 ### Requisitos
