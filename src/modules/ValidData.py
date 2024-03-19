@@ -12,7 +12,7 @@ class ValidData:
         "inflation_multiplier_2019": "Multiplicador de inflação (2019)",
         "cubic_m_to_ft": "Conversão de metros cúbicos para pés cúbicos",
         "interest_rate": "Taxa de juros",
-        "NG_price": "Preço do gás natural",
+        "NG_price": "Preço do gás natural (US$/kft³)",
         "time_to_pay_turbine": "Tempo para pagar a turbina (meses)",
 
         "header6": "CCGT",

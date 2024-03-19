@@ -42,7 +42,7 @@ class FormularioFurnas:
         )
         self.criar_widgets_dados()
         self.botao_enviar = Button(
-            description='Enviar', layout=Layout(width='200px', height='50px', margin='20px 10px 10px 475px'), style=ButtonStyle(button_color='#474a31'))
+            description='Enviar', layout=Layout(width='200px', height='50px', margin='20px 10px 10px 475px'))
         self.botao_exportar_csv = Button(
             description='Exportar CSV', layout=Layout(margin='10px 10px 10px 420px'))
         self.botao_carregar_csv = Button(
