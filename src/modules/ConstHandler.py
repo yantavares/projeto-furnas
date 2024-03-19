@@ -1,7 +1,9 @@
-# Importações necessárias para definir os widgets e manipular namespaces
 from types import SimpleNamespace
 from ipywidgets import FloatText, Layout, HTML
-from ValidData import ValidData
+from INITIAL_DATA import InitialData
+
+
+# Importações necessárias para definir os widgets e manipular namespaces
 
 
 def criar_widget(description, value, disabled=False, widget_style={'description_width': '325px'}, widget_layout=Layout(width='auto', margin='5px')):
@@ -70,8 +72,8 @@ class Constants:
     """
 
     def __init__(self, mode):
-        self.VALID = ValidData.get_valid_data(mode)
-        self.INITIAL = ValidData.get_initial_values(mode)
+        self.VALID = InitialData.get_valid_data(mode)
+        self.INITIAL = InitialData.get_initial_values(mode)
 
         def convert_to_widget(a):
             """
@@ -85,7 +87,7 @@ class Constants:
             try:
                 # Cria um dicionário de widgets usando criar_widget para cada valor
                 count = 0
-                headers = ValidData.get_header_positions(mode)
+                headers = InitialData.get_header_positions(mode)
                 b_dict = {}
                 for k, v in a_dict.items():
                     if count in headers:
@@ -102,7 +104,7 @@ class Constants:
                 return a
 
         # Inicialização dos valores padrão
-        self.values = ValidData.get_initial_values(mode)
+        self.values = InitialData.get_initial_values(mode)
 
         # Conversão dos valores para widgets
         self.widget_constants = convert_to_widget(self.values)

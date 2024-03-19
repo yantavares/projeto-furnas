@@ -9,7 +9,7 @@ from ConstHandler import Constants
 
 class FormularioFurnas:
 
-    def __init__(self, mode='turbines'):
+    def __init__(self, mode='turbines', is_colab=True):
         # Inicialização das constantes e dos widgets do formulário
         sources = {}
         if mode == "turbines":
@@ -27,9 +27,10 @@ class FormularioFurnas:
                 "Custos das baterias": "https://www.energy.gov/",
                 "Custos de ultra-capacitores": "https://ebay.com/",
             }
-        self.mode = mode
+
+        self.is_colab = is_colab
         self.sources = sources
-        self.consts = Constants(self.mode)
+        self.consts = Constants(mode)
         self.inicializar_widgets()
         self.configurar_observadores()
 
@@ -86,7 +87,7 @@ class FormularioFurnas:
             self.exibir_formulario_dados_personalizados()
         else:
             self.exibir_fontes()
-            self.consts = Constants(self.mode)
+            self.consts = Constants()
 
     def formulario_namespace(self, namespace):
         # Método para criar um formulário baseado em SimpleNamespace, organizando os widgets em linhas
@@ -150,10 +151,10 @@ class FormularioFurnas:
 
         return SimpleNamespace(**filtered_values)
 
-    def manipulador_evento_baixar_csv(self, _, isColab=True):
+    def manipulador_evento_baixar_csv(self, _):
         # Manipulador de evento para o botão de exportar para CSV
 
-        if isColab:
+        if self.is_colab:
             try:
                 from google.colab import files
                 valores = self.recuperar_valores()
@@ -198,9 +199,9 @@ class FormularioFurnas:
         display(self.dropdown)
         self.exibir_formulario_dados_personalizados()
 
-    def manipulador_evento_carregar_csv(self, _, isColab=True):
+    def manipulador_evento_carregar_csv(self, _):
         # Manipulador de evento para o botão de carregar CSV
-        if isColab:
+        if self.is_colab:
             from google.colab import files
             clear_output(wait=True)
             self.exibir_formulario_dados_personalizados_e_dropdown()
