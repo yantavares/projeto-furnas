@@ -4,25 +4,25 @@ from ipywidgets import Button, Dropdown, VBox, HBox, Layout, HTML, ButtonStyle
 import pandas as pd
 from types import SimpleNamespace
 
-from ConstHandler import Constants
+from Gerenciador_Constantes import Constantes
 
 
 class FormularioFurnas:
 
-    def __init__(self, mode='turbines', is_colab=True):
+    def __init__(self, mode='turbinas', is_colab=True):
         # Inicialização das constantes e dos widgets do formulário
         sources = {}
-        if mode == "turbines":
+        if mode == "turbinas":
             sources = {
                 "Multiplicadores de inflação": "https://www.bls.gov/data/inflation_calculator.htm",
                 "Conversão de pés cúbicos para metros cúbicos": "https://www.eia.gov/energyexplained/units-and-calculators/energy-conversion-calculators.php",
                 "Preço de gás natural": "https://www.eia.gov/dnav/ng/hist/n3035us3A.htm",
-                "Dados sobre CCGT": "https://www.ge.com/gas-power/products/gas-turbines/7ha",
-                "Dados sobre AeroGT": "https://www.ge.com/gas-power/products/gas-turbines/lm6000",
-                "Dados sobre Heavy Duty": "https://www.ge.com/gas-power/products/gas-turbines/7f",
+                "Dados sobre CCGT": "https://www.ge.com/gas-power/products/gas-turbinas/7ha",
+                "Dados sobre AeroGT": "https://www.ge.com/gas-power/products/gas-turbinas/lm6000",
+                "Dados sobre Heavy Duty": "https://www.ge.com/gas-power/products/gas-turbinas/7f",
                 "Dados sobre custos de partida": "https://www.nrel.gov/docs/fy12osti/55433.pdf",
             }
-        elif mode == "batteries":
+        elif mode == "baterias":
             sources = {
                 "Custos das baterias": "https://www.energy.gov/",
                 "Custos de ultra-capacitores": "https://ebay.com/",
@@ -30,7 +30,7 @@ class FormularioFurnas:
 
         self.is_colab = is_colab
         self.sources = sources
-        self.consts = Constants(mode)
+        self.consts = Constantes(mode)
         self.inicializar_widgets()
         self.configurar_observadores()
 
@@ -58,7 +58,7 @@ class FormularioFurnas:
 
     def criar_widgets_dados(self):
         # Método placeholder para criação de widgets específicos de dados
-        widgets = self.consts.get_widgets()
+        widgets = self.consts.resgatar_widgets()
 
     def exibir_formulario(self):
         # Exibe o widget dropdown do formulário
@@ -87,7 +87,7 @@ class FormularioFurnas:
             self.exibir_formulario_dados_personalizados()
         else:
             self.exibir_fontes()
-            self.consts = Constants()
+            self.consts = Constantes()
 
     def formulario_namespace(self, namespace):
         # Método para criar um formulário baseado em SimpleNamespace, organizando os widgets em linhas
@@ -126,12 +126,12 @@ class FormularioFurnas:
 
     def exibir_formulario_dados_personalizados(self):
         # Método para exibir o formulário de dados personalizados, incluindo botões de exportar e carregar CSV
-        display(self.formulario_namespace(self.consts.get_widgets()))
+        display(self.formulario_namespace(self.consts.resgatar_widgets()))
         display(HBox([self.botao_exportar_csv, self.botao_carregar_csv]))
 
     def atualizar_valores(self):
         # Atualiza os valores baseando-se nas entradas do usuário ou dados padrão
-        self.consts.set_values()
+        self.consts.set_valores()
 
     def manipulador_evento_botao_enviar(self, _):
         # Manipulador de evento para o botão de enviar, atualizando os valores
@@ -143,7 +143,7 @@ class FormularioFurnas:
 
     def recuperar_valores(self):
         # Retorna os valores atualizados do formulário
-        values = self.consts.get_values()
+        values = self.consts.resgatar_valores()
         values_dict = vars(values)
 
         filtered_values = {
@@ -211,7 +211,7 @@ class FormularioFurnas:
                     df = pd.read_csv(fn)
                     valores = SimpleNamespace(
                         **df.to_dict(orient='records')[0])
-                    self.consts.set_personalized_values(valores)
+                    self.consts.set_valores_personalizados(valores)
                     msg1 = "CSV carregado com sucesso!"
                     msg2 = "Não esqueça de clicar em 'Enviar' para atualizar os valores"
                 except Exception as e:
@@ -227,7 +227,7 @@ class FormularioFurnas:
             try:
                 df = pd.read_csv('dados.csv')
                 valores = SimpleNamespace(**df.to_dict(orient='records')[0])
-                self.consts.set_personalized_values(valores)
+                self.consts.set_valores_personalizados(valores)
                 msg1 = "CSV carregado com sucesso!"
                 msg2 = "Não esqueça de clicar em 'Enviar' para atualizar os valores"
             except FileNotFoundError:

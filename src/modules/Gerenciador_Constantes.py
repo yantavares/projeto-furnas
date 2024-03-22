@@ -1,6 +1,6 @@
 from types import SimpleNamespace
 from ipywidgets import FloatText, Layout, HTML
-from INITIAL_DATA import InitialData
+from VARIAVEIS_INICIAIS import InitialData
 
 
 # Importações necessárias para definir os widgets e manipular namespaces
@@ -64,7 +64,7 @@ def map_simple_namespace(a, f):
     return b
 
 
-class Constants:
+class Constantes:
     """
     Classe para gerenciar constantes e valores do formulário, incluindo a criação de widgets correspondentes.
 
@@ -72,10 +72,10 @@ class Constants:
     """
 
     def __init__(self, mode):
-        self.VALID = InitialData.get_valid_data(mode)
-        self.INITIAL = InitialData.get_initial_values(mode)
+        self.VALIDO = InitialData.resgatar_valores_validos(mode)
+        self.INICIAL = InitialData.resgatar_valores_iniciais(mode)
 
-        def convert_to_widget(a):
+        def converter_para_widget(a):
             """
             Converte um SimpleNamespace em um conjunto de widgets, baseando-se nas chaves válidas.
 
@@ -87,14 +87,14 @@ class Constants:
             try:
                 # Cria um dicionário de widgets usando criar_widget para cada valor
                 count = 0
-                headers = InitialData.get_header_positions(mode)
+                headers = InitialData.resgatar_posicoes_header(mode)
                 b_dict = {}
                 for k, v in a_dict.items():
                     if count in headers:
                         b_dict["header" +
-                               str(count)] = criar_header(self.VALID["header" + str(count)])
-                    if k in self.VALID.keys():
-                        b_dict[k] = criar_widget(self.VALID[k], v)
+                               str(count)] = criar_header(self.VALIDO["header" + str(count)])
+                    if k in self.VALIDO.keys():
+                        b_dict[k] = criar_widget(self.VALIDO[k], v)
                     count += 1
 
                 b = SimpleNamespace(**b_dict)
@@ -104,18 +104,18 @@ class Constants:
                 return a
 
         # Inicialização dos valores padrão
-        self.values = InitialData.get_initial_values(mode)
+        self.values = InitialData.resgatar_valores_iniciais(mode)
 
         # Conversão dos valores para widgets
-        self.widget_constants = convert_to_widget(self.values)
+        self.widget_constants = converter_para_widget(self.values)
 
-    def get_widgets(self):
+    def resgatar_widgets(self):
         """
         Retorna os widgets correspondentes às constantes.
         """
         return self.widget_constants
 
-    def set_values(self):
+    def set_valores(self):
         """
         Atualiza os valores das constantes com base nos valores inseridos nos widgets.
         """
@@ -123,32 +123,32 @@ class Constants:
             self.widget_constants, lambda x: x.value)
         self.values = novo_namespace
 
-    def set_personalized_values(self, values):
+    def set_valores_personalizados(self, values):
         """
         Define valores personalizados, garantindo que as chaves sejam válidas.
         """
         try:
             for key, _ in vars(values).items():
-                if key not in self.VALID.keys():
+                if key not in self.VALIDO.keys():
                     raise ValueError("Chave inválida!", key)
 
-            values = self.patch_values(values)
-            self.widget_constants = self.convert_to_widget(values)
+            values = self.editar_valores(values)
+            self.widget_constants = self.converter_para_widget(values)
         except Exception as e:
             raise ValueError("Erro ao atualizar valores personalizados: ", e)
 
-    def get_values(self):
+    def resgatar_valores(self):
         """
         Retorna os valores atualizados das constantes.
         """
         return self.values
 
-    def patch_values(self, new_values: SimpleNamespace, initial_values=None):
+    def editar_valores(self, new_values: SimpleNamespace, initial_values=None):
         """
         Adiciona campos faltantes com valores padrão e atualiza os valores das constantes com base nos valores inseridos.
         """
         if initial_values is None:
-            initial_values = self.INITIAL
+            initial_values = self.INICIAL
 
         new_values_pacthed = SimpleNamespace()
         try:
@@ -165,8 +165,8 @@ class Constants:
             raise ValueError("Erro ao atualizar valores personalizados: ", e)
 
 
-# Bloco de execução principal para testar a classe Constants
+# Bloco de execução principal para testar a classe Constantes
 if __name__ == "__main__":
-    c = Constants("batteries")
-    c.set_values()
-    print(c.get_values())
+    c = Constantes("baterias")
+    c.set_valores()
+    print(c.resgatar_valores())

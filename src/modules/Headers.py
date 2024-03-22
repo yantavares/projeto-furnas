@@ -1,7 +1,7 @@
-# This means: After index x put header
-header_positions_turbines = [0, 6, 16, 26]
-# To get that: (index in valid) - (how many were before)
-headers_turbines = {
+# Isso quer dizer: Depois do índice x coloque o header
+header_posicoes_turbinas = [0, 6, 16, 26]
+
+headers_turbinas = {
     "header0": "Geral",
 
     "inflation_multiplier_2012": "Multiplicador de inflação (2012)",
@@ -51,10 +51,10 @@ headers_turbines = {
     "Heavy_Duty_cold_start_cost": "Custo de partida fria da Heavy Duty (US$/MW)",
 }
 
-# This means: After index x put header
-header_positions_batteries = [0, 3, 6, 9, 12, 15, 18]
+# Isso quer dizer: Depois do índice x coloque o header
+header_posicoes_baterias = [0, 3, 6, 9, 12, 15, 18]
 
-headers_batteries = {
+headers_baterias = {
     "header0": "Bateria: Chumbo-Ácido",
 
     "lead_acid_kw": "Custo de projeto por kW",
