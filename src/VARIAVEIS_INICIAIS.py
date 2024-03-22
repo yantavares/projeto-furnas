@@ -63,37 +63,6 @@ class InitialData:
         # - https://www.nrel.gov/docs/fy12osti/55433.pdf
     )
 
-    VALORES_INICIAIS_BATERIAS = SimpleNamespace(
-        # Fonte DOE:
-        lead_acid_kw=1976,
-        lead_acid_lifespan=3,
-        lead_acid_kwh=494.5,
-
-        li_ion_kw=1946,
-        li_ion_lifespan=10,
-        li_ion_kwh=487,
-
-        sodium_sulfur_kw=3782,
-        sodium_sulfur_lifespan=13.5,
-        sodium_sulfur_kwh=946,
-
-        redox_flow_kw=3984,
-        redox_flow_lifespan=15,
-        redox_flow_kwh=996.5,
-
-        sodium_metal_halide_kw=3952,
-        sodium_metal_halide_lifespan=12.5,
-        sodium_metal_halide_kwh=988.5,
-
-        zinc_hybrid_cathode_kw=2200,
-        zinc_hybrid_cathode_lifespan=10,
-        zinc_hybrid_cathode_kwh=550.5,
-
-        ultracapacitor_kw=930,
-        ultracapacitor_lifespan=16,
-        ultracapacitor_kwh=74480,
-    )
-
     @staticmethod
     def valido(data, mode):
         if mode == "turbinas":
