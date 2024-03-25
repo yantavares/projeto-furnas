@@ -50,3 +50,49 @@ headers_turbinas = {
     "Heavy_Duty_custo_warm_start": "Custo de partida morna da Heavy Duty (US$/MW)",
     "Heavy_Duty_custo_cold_start": "Custo de partida fria da Heavy Duty (US$/MW)",
 }
+
+header_posicoes_baterias = [0, 3, 6, 9, 12, 15, 18]
+
+headers_baterias = {
+    "header0": "Bateria: Chumbo-Ácido",
+
+    "chumbo_acido_kw": "Custo de projeto por kW (US$/kW)",
+    "chumbo_acido_vida_util": "Vida útil (anos)",
+    "chumbo_acido_kwh": "Custo de projeto por kWh (US$/kWh)",
+
+    "header3": "Bateria: Lítio-Íon",
+
+    "li_ion_kw": "Custo de projeto por kW (US$/kW)",
+    "li_ion_vida_util": "Vida útil (anos) ",
+    "li_ion_kwh": "Custo de projeto por kWh (US$/kWh)",
+
+    "header6": "Bateria: Sódio-Enxofre",
+
+    "sodio_enxofre_kw": "Custo de projeto por kW (US$/kW)",
+    "sodio_enxofre_vida_util": "Vida útil (anos)",
+    "sodio_enxofre_kwh": "Custo de projeto por kWh (US$/kWh)",
+
+    "header9": "Bateria: Fluxo de oxidação",
+
+    "fluxo_oxidacao_kw": "Custo de projeto por kW (US$/kW)",
+    "fluxo_oxidacao_vida_util": "Vida útil (anos)",
+    "fluxo_oxidacao_kwh": "Custo de projeto por kWh (US$/kWh)",
+
+    "header12": "Bateria: Sódio-Metal",
+
+    "sodio_metal_kw": "Custo de projeto por kW (US$/kW)",
+    "sodio_metal_vida_util": "Vida útil (anos)",
+    "sodio_metal_kwh": "Custo de projeto por kWh (US$/kWh)",
+
+    "header15": "Bateria: Zinco-Catodo Híbrido",
+
+    "zinco_catodo_kw": "Custo de projeto por kW (US$/kW)",
+    "zinco_catodo_vida_util": "Vida útil (anos)",
+    "zinco_catodo_kwh": "Custo de projeto por kWh (US$/kWh)",
+
+    "header18": "Ultracapacitor",
+
+    "ultracapacitor_kw": "Custo de projeto por kW (US$/kW)",
+    "ultracapacitor_vida_util": "Vida útil (anos)",
+    "ultracapacitor_kwh": "Custo de projeto por kWh (US$/kWh)",
+}

@@ -1,4 +1,4 @@
-from Headers import headers_turbinas, header_posicoes_turbinas
+from Headers import headers_turbinas, header_posicoes_turbinas, headers_baterias, header_posicoes_baterias
 from types import SimpleNamespace
 
 
@@ -63,12 +63,43 @@ class Valores_Iniciais:
         # - https://www.nrel.gov/docs/fy12osti/55433.pdf
     )
 
+    INITIAL_VALUES_BATTERIES = SimpleNamespace(
+        # Dados do site da DOE
+        chumbo_acido_kw=1976,
+        chumbo_acido_vida_util=3,
+        chumbo_acido_kwh=494.5,
+
+        li_ion_kw=1946,
+        li_ion_vida_util=10,
+        li_ion_kwh=487,
+
+        sodio_enxofre_kw=3782,
+        sodio_enxofre_vida_util=13.5,
+        sodio_enxofre_kwh=946,
+
+        fluxo_oxidacao_kw=3984,
+        fluxo_oxidacao_vida_util=15,
+        fluxo_oxidacao_kwh=996.5,
+
+        sodio_metal_kw=3952,
+        sodio_metal_vida_util=12.5,
+        sodio_metal_kwh=988.5,
+
+        zinco_catodo_kw=2200,
+        zinco_catodo_vida_util=10,
+        zinco_catodo_kwh=550.5,
+
+        ultracapacitor_kw=930,
+        ultracapacitor_vida_util=16,
+        ultracapacitor_kwh=74480,
+    )
+
     @staticmethod
     def valido(data, mode):
         if mode == "turbinas":
             return data in headers_turbinas
         elif mode == "baterias":
-            pass
+            return data in headers_baterias
         else:
             raise ValueError("Modo inválido!")
 
@@ -77,7 +108,7 @@ class Valores_Iniciais:
         if mode == "turbinas":
             return headers_turbinas
         elif mode == "baterias":
-            pass
+            return headers_baterias
         else:
             raise ValueError("Modo inválido!")
 
@@ -86,7 +117,7 @@ class Valores_Iniciais:
         if mode == "turbinas":
             return headers_turbinas[key]
         elif mode == "baterias":
-            pass
+            return headers_baterias[key]
         else:
             raise ValueError("Modo inválido!")
 
@@ -95,7 +126,7 @@ class Valores_Iniciais:
         if mode == "turbinas":
             return list(headers_turbinas.keys())[list(headers_turbinas.values()).index(value)]
         elif mode == "baterias":
-            pass
+            return list(headers_baterias.keys())[list(headers_baterias.values()).index(value)]
         else:
             raise ValueError("Modo inválido!")
 
@@ -113,6 +144,6 @@ class Valores_Iniciais:
         if mode == "turbinas":
             return header_posicoes_turbinas
         elif mode == "baterias":
-            pass
+            return header_posicoes_baterias
         else:
             raise ValueError("Modo inválido!")
