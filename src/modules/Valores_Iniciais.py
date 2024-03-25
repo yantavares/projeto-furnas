@@ -1,4 +1,4 @@
-from modules.headers import headers_turbinas, header_posicoes_turbinas
+from headers import headers_turbinas, header_posicoes_turbinas
 from types import SimpleNamespace
 
 
