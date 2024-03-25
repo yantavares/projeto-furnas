@@ -1,6 +1,6 @@
 from types import SimpleNamespace
 from ipywidgets import FloatText, Layout, HTML
-from VARIAVEIS_INICIAIS import InitialData
+from Valores_Iniciais import InitialData
 
 
 # Importações necessárias para definir os widgets e manipular namespaces

@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 import time
 
 
-class GeradorGraficoFurnas:
+class Gerador_Grafico_Furnas:
     def __init__(self, nome_arquivo="grafico"):
         self.nome_arquivo = nome_arquivo
 
@@ -152,7 +152,7 @@ class GeradorGraficoFurnas:
 
 if __name__ == "__main__":
     # Exemplo de uso da classe
-    gerador = GeradorGraficoFurnas("meu_grafico")
+    gerador = Gerador_Grafico_Furnas("meu_grafico")
     x = [1, 2, 3, 4]
     gerador.grafico_interativo_multiplas_linhas(
         x, [[1, 2, 3, 4], [20, 21, 22, 23], [20, 21, 22, 23], [20, 21, 22, 23]

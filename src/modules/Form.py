@@ -1,13 +1,13 @@
 # Importações necessárias para o funcionamento do formulário e manipulação de dados
-from IPython.display import display, clear_output
-from ipywidgets import Button, Dropdown, VBox, HBox, Layout, HTML, ButtonStyle
-import pandas as pd
 from types import SimpleNamespace
 
+import pandas as pd
 from Gerenciador_Constantes import Constantes
+from IPython.display import clear_output, display
+from ipywidgets import HTML, Button, Dropdown, HBox, Layout, VBox
 
 
-class FormularioFurnas:
+class Formulario_Furnas:
 
     def __init__(self, mode='turbinas', is_colab=True):
         # Inicialização das constantes e dos widgets do formulário
@@ -246,6 +246,6 @@ class FormularioFurnas:
 
 # Execução principal do script, caso este arquivo seja o ponto de entrada
 if __name__ == "__main__":
-    formulario = FormularioFurnas()
+    formulario = Formulario_Furnas()
     formulario.exibir_formulario()
     formulario.recuperar_valores()
