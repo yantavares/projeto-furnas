@@ -63,7 +63,7 @@ class Valores_Iniciais:
         # - https://www.nrel.gov/docs/fy12osti/55433.pdf
     )
 
-    INITIAL_VALUES_BATTERIES = SimpleNamespace(
+    VALORES_INICIAIS_BATERIAS = SimpleNamespace(
         # Dados do site da DOE
         chumbo_acido_kw=1976,
         chumbo_acido_vida_util=3,
