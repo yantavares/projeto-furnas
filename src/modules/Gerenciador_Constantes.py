@@ -1,6 +1,6 @@
 from types import SimpleNamespace
 from ipywidgets import FloatText, Layout, HTML
-from Valores_Iniciais import InitialData
+from Valores_Iniciais import Initial_Data
 
 
 # Importações necessárias para definir os widgets e manipular namespaces
@@ -72,8 +72,8 @@ class Constantes:
     """
 
     def __init__(self, mode):
-        self.VALIDO = InitialData.resgatar_valores_validos(mode)
-        self.INICIAL = InitialData.resgatar_valores_iniciais(mode)
+        self.VALIDO = Initial_Data.resgatar_valores_validos(mode)
+        self.INICIAL = Initial_Data.resgatar_valores_iniciais(mode)
 
         def converter_para_widget(a):
             """
@@ -87,7 +87,7 @@ class Constantes:
             try:
                 # Cria um dicionário de widgets usando criar_widget para cada valor
                 count = 0
-                headers = InitialData.resgatar_posicoes_header(mode)
+                headers = Initial_Data.resgatar_posicoes_header(mode)
                 b_dict = {}
                 for k, v in a_dict.items():
                     if count in headers:
@@ -104,7 +104,7 @@ class Constantes:
                 return a
 
         # Inicialização dos valores padrão
-        self.values = InitialData.resgatar_valores_iniciais(mode)
+        self.values = Initial_Data.resgatar_valores_iniciais(mode)
 
         # Conversão dos valores para widgets
         self.widget_constants = converter_para_widget(self.values)
